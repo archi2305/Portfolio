@@ -11,7 +11,7 @@ export const profileConfig = {
   phoneUrl: "tel:+919508864261",
   location: "Noida, India",
   locationMapsUrl: "https://maps.google.com/?q=Noida,India",
-  resumeUrl: "/assets/resume/Archi_Snehi_Resume.pdf",
+  resumeUrl: "/assets/resume/Archi_Snehi_Resume_SDE.pdf",
   siteUrl: "https://github.com/archi2305/Portfolio", // Dynamic site base URL
   socials: {
     github: "https://github.com/archi2305",
