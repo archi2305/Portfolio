@@ -32,7 +32,7 @@ interface TimelineItemProps {
 
 function TimelineItem({ item }: TimelineItemProps) {
   return (
-    <div className="group relative w-full">
+    <div className="group relative w-full transition-transform duration-300 hover:translate-x-1">
       
       {/* Subtle Animated Node Dot Indicator */}
       <m.div 
@@ -75,7 +75,7 @@ function TimelineItem({ item }: TimelineItemProps) {
           <div className="space-y-2.5 max-w-2xl">
             <Caption className="text-xs font-bold uppercase tracking-wider text-muted-foreground flex items-center gap-1.5">
               <Award className="h-3.5 w-3.5" />
-              Achievements
+              Key Contributions
             </Caption>
             <ul className="list-disc pl-5 space-y-2.5 text-xs sm:text-sm text-secondary-text/90">
               {item.achievements.map((achievement, i) => (
