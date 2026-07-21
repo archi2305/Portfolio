@@ -17,7 +17,7 @@ import { profileConfig } from "@/data/config"
 import { Project } from "@/types/project"
 import { MobileHeader } from "@/components/layout/mobile-header"
 import { Sidebar } from "@/components/layout/sidebar"
-import { Hero } from "@/components/sections/hero"
+import { About } from "@/components/sections/about"
 import dynamic from "next/dynamic"
 
 const ProjectModal = dynamic(() => import("@/components/ui/project-modal").then((mod) => mod.ProjectModal), {
@@ -71,22 +71,8 @@ export default function Home() {
         {/* Right Scrollable Area */}
         <main className="flex-1 lg:w-2/3 lg:pl-12 lg:py-24 py-12 flex flex-col gap-24 lg:gap-36">
           
-          {/* Hero Section */}
-          <Hero />
-
-          {/* About Section Placeholder */}
-          <Section id="about" className="scroll-mt-24 min-h-[50vh]">
-            <RevealOnScroll>
-              <Stack gap={4}>
-                <Heading as="h2" size="h2" className="border-b pb-2 border-border">
-                  About
-                </Heading>
-                <Body className="max-w-2xl text-secondary-text">
-                  [About Section Content Placeholder] Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet.
-                </Body>
-              </Stack>
-            </RevealOnScroll>
-          </Section>
+          {/* About Section */}
+          <About />
 
           {/* Experience Section */}
           <Section id="experience" className="scroll-mt-24 min-h-[50vh]">
