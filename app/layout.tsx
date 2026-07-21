@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: profileConfig.metadata.title,
     description: profileConfig.metadata.description,
-    creator: "@todo-username",
+    creator: "@archi_snehi",
   },
   robots: {
     index: true,
