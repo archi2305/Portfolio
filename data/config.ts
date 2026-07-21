@@ -16,7 +16,7 @@ export const profileConfig = {
   socials: {
     github: "https://github.com/archi2305",
     linkedin: "https://www.linkedin.com/in/archi-snehi-39327b253/",
-    twitter: "https://twitter.com/archi_snehi",
+    leetcode: "https://leetcode.com/u/archisnehi2305/",
   },
   metadata: {
     title: "Archi Snehi | Portfolio",

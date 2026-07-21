@@ -1,10 +1,10 @@
 import * as React from "react"
-import { GitFork, Briefcase, Send, Mail, FileText } from "lucide-react"
+import { GitFork, Briefcase, Code, Mail, FileText } from "lucide-react"
 import { buttonVariants } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 
 export interface SocialButtonProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
-  platform: "github" | "linkedin" | "twitter" | "email" | "resume"
+  platform: "github" | "linkedin" | "leetcode" | "email" | "resume"
   href: string
   variant?: "default" | "outline" | "secondary" | "ghost"
   size?: "default" | "sm" | "lg" | "icon"
@@ -13,7 +13,7 @@ export interface SocialButtonProps extends React.AnchorHTMLAttributes<HTMLAnchor
 const iconMap = {
   github: { icon: GitFork, label: "GitHub Profile" },
   linkedin: { icon: Briefcase, label: "LinkedIn Profile" },
-  twitter: { icon: Send, label: "Twitter Profile" },
+  leetcode: { icon: Code, label: "LeetCode Profile" },
   email: { icon: Mail, label: "Send Email" },
   resume: { icon: FileText, label: "View Resume" },
 }

@@ -44,7 +44,7 @@ export default function Home() {
   const socialLinks = [
     { platform: "github" as const, href: profileConfig.socials.github },
     { platform: "linkedin" as const, href: profileConfig.socials.linkedin },
-    { platform: "twitter" as const, href: profileConfig.socials.twitter },
+    { platform: "leetcode" as const, href: profileConfig.socials.leetcode },
     { platform: "email" as const, href: profileConfig.emailMailto },
     { platform: "resume" as const, href: profileConfig.resumeUrl },
   ]

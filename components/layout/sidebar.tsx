@@ -10,7 +10,7 @@ import { cn } from "@/lib/utils"
 export interface SidebarProps {
   activeSection: string
   navItems: { label: string; id: string }[]
-  socialLinks: { platform: "github" | "linkedin" | "twitter" | "email" | "resume"; href: string }[]
+  socialLinks: { platform: "github" | "linkedin" | "leetcode" | "email" | "resume"; href: string }[]
 }
 
 export function Sidebar({ activeSection, navItems, socialLinks }: SidebarProps) {
