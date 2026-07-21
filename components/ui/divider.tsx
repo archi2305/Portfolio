@@ -23,3 +23,5 @@ export function Divider({
     />
   )
 }
+
+export { Divider as Separator }
