@@ -1,24 +1,33 @@
 "use client"
 
 import * as React from "react"
-import { LazyMotion, domMax, m, HTMLMotionProps } from "framer-motion"
+import { LazyMotion, domMax, m, useReducedMotion, HTMLMotionProps } from "framer-motion"
 
 export function MotionProvider({ children }: { children: React.ReactNode }) {
   return <LazyMotion features={domMax}>{children}</LazyMotion>
 }
+
+// Premium easeOutExpo transition curve for high-end UI feel
+const easeOutExpo = [0.16, 1, 0.3, 1] as const
 
 export interface AnimationProps extends HTMLMotionProps<"div"> {
   duration?: number
   delay?: number
 }
 
-export function FadeIn({ children, duration = 0.5, delay = 0, ...props }: AnimationProps) {
+export function FadeIn({ children, duration = 0.6, delay = 0, ...props }: AnimationProps) {
+  const shouldReduceMotion = useReducedMotion()
+
   return (
     <m.div
-      initial={{ opacity: 0 }}
-      whileInView={{ opacity: 1 }}
+      initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0 }}
+      whileInView={shouldReduceMotion ? { opacity: 1 } : { opacity: 1 }}
       viewport={{ once: true, margin: "-100px" }}
-      transition={{ duration, delay, ease: "easeOut" }}
+      transition={{ 
+        duration: shouldReduceMotion ? 0 : duration, 
+        delay: shouldReduceMotion ? 0 : delay, 
+        ease: easeOutExpo 
+      }}
       {...props}
     >
       {children}
@@ -32,17 +41,23 @@ export interface SlideUpProps extends AnimationProps {
 
 export function SlideUp({
   children,
-  duration = 0.5,
+  duration = 0.6,
   delay = 0,
-  yOffset = 30,
+  yOffset = 16, // Reduced offset for subtle, premium transition
   ...props
 }: SlideUpProps) {
+  const shouldReduceMotion = useReducedMotion()
+
   return (
     <m.div
-      initial={{ opacity: 0, y: yOffset }}
-      whileInView={{ opacity: 1, y: 0 }}
+      initial={shouldReduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: yOffset }}
+      whileInView={shouldReduceMotion ? { opacity: 1, y: 0 } : { opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-100px" }}
-      transition={{ duration, delay, ease: "easeOut" }}
+      transition={{ 
+        duration: shouldReduceMotion ? 0 : duration, 
+        delay: shouldReduceMotion ? 0 : delay, 
+        ease: easeOutExpo 
+      }}
       {...props}
     >
       {children}
@@ -56,17 +71,23 @@ export interface ScaleInProps extends AnimationProps {
 
 export function ScaleIn({
   children,
-  duration = 0.4,
+  duration = 0.5,
   delay = 0,
-  initialScale = 0.9,
+  initialScale = 0.97, // Subtle scaling to avoid jarring layouts
   ...props
 }: ScaleInProps) {
+  const shouldReduceMotion = useReducedMotion()
+
   return (
     <m.div
-      initial={{ opacity: 0, scale: initialScale }}
-      whileInView={{ opacity: 1, scale: 1 }}
+      initial={shouldReduceMotion ? { opacity: 1, scale: 1 } : { opacity: 0, scale: initialScale }}
+      whileInView={shouldReduceMotion ? { opacity: 1, scale: 1 } : { opacity: 1, scale: 1 }}
       viewport={{ once: true, margin: "-100px" }}
-      transition={{ duration, delay, ease: "easeOut" }}
+      transition={{ 
+        duration: shouldReduceMotion ? 0 : duration, 
+        delay: shouldReduceMotion ? 0 : delay, 
+        ease: easeOutExpo 
+      }}
       {...props}
     >
       {children}
@@ -81,10 +102,12 @@ export interface StaggerProps extends HTMLMotionProps<"div"> {
 
 export function Stagger({
   children,
-  staggerChildren = 0.1,
+  staggerChildren = 0.08, // Slightly faster, snappier stagger
   delayChildren = 0,
   ...props
 }: StaggerProps) {
+  const shouldReduceMotion = useReducedMotion()
+
   return (
     <m.div
       initial="hidden"
@@ -94,8 +117,8 @@ export function Stagger({
         hidden: {},
         visible: {
           transition: {
-            staggerChildren,
-            delayChildren,
+            staggerChildren: shouldReduceMotion ? 0 : staggerChildren,
+            delayChildren: shouldReduceMotion ? 0 : delayChildren,
           },
         },
       }}
@@ -112,15 +135,20 @@ export interface RevealOnScrollProps extends HTMLMotionProps<"div"> {
 
 export function RevealOnScroll({
   children,
-  threshold = 0.1,
+  threshold = 0.15,
   ...props
 }: RevealOnScrollProps) {
+  const shouldReduceMotion = useReducedMotion()
+
   return (
     <m.div
-      initial={{ opacity: 0, y: 25 }}
-      whileInView={{ opacity: 1, y: 0 }}
+      initial={shouldReduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 12 }}
+      whileInView={shouldReduceMotion ? { opacity: 1, y: 0 } : { opacity: 1, y: 0 }}
       viewport={{ once: true, amount: threshold }}
-      transition={{ duration: 0.6, ease: "easeOut" }}
+      transition={{ 
+        duration: shouldReduceMotion ? 0 : 0.7, 
+        ease: easeOutExpo 
+      }}
       {...props}
     >
       {children}

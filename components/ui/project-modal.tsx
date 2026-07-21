@@ -8,7 +8,7 @@ import { IconButton } from "@/components/ui/icon-button"
 import { buttonVariants } from "@/components/ui/button"
 import { H2, H3, Body } from "@/components/ui/typography"
 import { X, GitFork, ExternalLink, Terminal, AlertTriangle, Lightbulb, ClipboardList } from "lucide-react"
-import { motion, AnimatePresence } from "framer-motion"
+import { m, AnimatePresence, useReducedMotion } from "framer-motion"
 import { cn } from "@/lib/utils"
 
 export interface ProjectModalProps {
@@ -19,6 +19,7 @@ export interface ProjectModalProps {
 
 export function ProjectModal({ project, isOpen, onClose }: ProjectModalProps) {
   const containerRef = React.useRef<HTMLDivElement>(null)
+  const shouldReduceMotion = useReducedMotion()
 
   // Handle escape key to close
   React.useEffect(() => {
@@ -47,7 +48,7 @@ export function ProjectModal({ project, isOpen, onClose }: ProjectModalProps) {
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 md:p-10">
           
           {/* Backdrop Overlay */}
-          <motion.div
+          <m.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -56,13 +57,13 @@ export function ProjectModal({ project, isOpen, onClose }: ProjectModalProps) {
           />
 
           {/* Modal Container */}
-          <motion.div
+          <m.div
             ref={containerRef}
             tabIndex={-1}
-            initial={{ opacity: 0, scale: 0.95, y: 15 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.95, y: 15 }}
-            transition={{ type: "spring", duration: 0.4 }}
+            initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, scale: 0.98, y: 12 }}
+            animate={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, scale: 1, y: 0 }}
+            exit={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, scale: 0.98, y: 12 }}
+            transition={shouldReduceMotion ? { duration: 0.1 } : { type: "spring", stiffness: 300, damping: 30 }}
             className="relative w-full max-w-3xl max-h-[85vh] overflow-y-auto rounded-xl border border-border bg-card shadow-2xl p-6 md:p-8 z-10 scrollbar-thin focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
             role="dialog"
             aria-modal="true"
@@ -189,7 +190,7 @@ export function ProjectModal({ project, isOpen, onClose }: ProjectModalProps) {
               </button>
             </div>
 
-          </motion.div>
+          </m.div>
         </div>
       )}
     </AnimatePresence>
