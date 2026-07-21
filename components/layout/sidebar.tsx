@@ -4,6 +4,7 @@ import { Stack } from "@/components/layout/stack"
 import { SocialButton } from "@/components/ui/social-buttons"
 import { ThemeToggle } from "@/components/ui/theme-toggle"
 import { profileConfig } from "@/data/config"
+import { MapPin } from "lucide-react"
 import { cn } from "@/lib/utils"
 
 export interface SidebarProps {
@@ -17,14 +18,21 @@ export function Sidebar({ activeSection, navItems, socialLinks }: SidebarProps) 
     <aside className="hidden lg:flex lg:flex-col lg:justify-between lg:w-1/3 lg:h-screen lg:sticky lg:top-0 lg:py-24">
       <Stack gap={10} className="w-full">
         {/* Header info */}
-        <Stack gap={3}>
-          <Display className="text-3xl sm:text-4xl font-extrabold text-primary-text whitespace-nowrap">
-            {profileConfig.name}
-          </Display>
-          <H3 className="text-xl font-medium text-primary-text/90">
-            {profileConfig.title}
-          </H3>
-          <Body className="text-secondary-text max-w-sm mt-2 text-sm whitespace-pre-line leading-relaxed">
+        <Stack gap={4}>
+          <Stack gap={1}>
+            <Display className="text-2xl sm:text-3xl font-extrabold text-primary-text whitespace-nowrap">
+              {profileConfig.name}
+            </Display>
+            <H3 className="text-base sm:text-lg font-medium text-primary-text/90 leading-tight">
+              {profileConfig.title}
+            </H3>
+            <div className="flex items-center gap-1.5 text-muted-foreground text-xs pt-1">
+              <MapPin className="h-3.5 w-3.5 shrink-0" />
+              <span>{profileConfig.location}</span>
+            </div>
+          </Stack>
+          
+          <Body className="text-secondary-text max-w-sm text-sm whitespace-pre-line leading-relaxed">
             {profileConfig.sidebarIntro}
           </Body>
         </Stack>

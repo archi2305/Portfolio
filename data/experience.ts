@@ -7,7 +7,7 @@ export const experiences: Experience[] = [
     role: "Software Developer Intern",
     duration: "Apr 2026 – Jun 2026",
     location: "Remote",
-    description: "Contributed to the development of a production-ready social networking platform by architecting scalable backend services, implementing secure authentication, and building real-time communication features while collaborating across the full stack.",
+    description: "Contributed to a production-ready social networking platform by architecting scalable backend services, implementing secure authentication, and building real-time communication features.",
     technologies: [
       "FastAPI",
       "PostgreSQL",
@@ -19,9 +19,9 @@ export const experiences: Experience[] = [
       "JWT"
     ],
     achievements: [
-      "Architected and built a WebSocket-based real-time chat system from scratch, including the PostgreSQL schema for users, conversations, and engagement.",
-      "Built 20+ REST APIs covering authentication, user profiles, content publishing, and core social networking features.",
-      "Replaced the initial login system with Google OAuth 2.0, GitHub OAuth, and JWT-based authentication for a secure and seamless sign-in experience."
+      "Architected and built a **WebSocket** real-time chat system from scratch, including database schemas for users and conversations.",
+      "Developed **20+ REST APIs** covering core authentication, user profiles, and social networking features.",
+      "Integrated **Google OAuth 2.0**, **GitHub OAuth**, and **JWT** auth for secure and seamless user sessions."
     ],
   },
   {
@@ -30,12 +30,12 @@ export const experiences: Experience[] = [
     role: "Python & Web Development Intern",
     duration: "May 2024 – Jul 2024",
     location: "Gurugram, India",
-    description: "Owned backend development for DressHub, a fashion e-commerce platform, focusing on scalable inventory management, order processing, and improving the overall shopping experience through reliable backend systems.",
+    description: "Owned backend development for DressHub, a fashion e-commerce platform, focusing on inventory management, order processing, and shopping experience reliability.",
     technologies: ["Python", "Django", "MySQL", "JavaScript"],
     achievements: [
-      "Owned backend development for DressHub, implementing the product catalog, shopping cart, checkout flow, and order tracking modules.",
-      "Built an inventory synchronization pipeline to prevent overselling during concurrent customer checkouts.",
-      "Implemented advanced product search, filtering, and real-time inventory validation so customers only viewed products that were actually in stock."
+      "Owned backend development for DressHub, implementing catalog, shopping cart, and order tracking modules.",
+      "Built an inventory sync pipeline using **MySQL** to prevent overselling during concurrent checkouts.",
+      "Implemented advanced product search, filtering, and real-time inventory validation for in-stock catalog views."
     ],
   },
 ]

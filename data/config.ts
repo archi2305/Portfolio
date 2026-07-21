@@ -20,9 +20,9 @@ export const profileConfig = {
     description: "Full Stack Developer Portfolio - Building scalable web applications, AI-powered products, and cloud-native solutions with a focus on performance, usability, and clean architecture.",
   },
   aboutParagraphs: [
-    "I am a Full Stack Developer and MCA (Master of Computer Applications) student dedicated to building robust, scalable web systems and intelligent cloud-native solutions. My journey in technology centers on writing clean, maintainable code and translating complex specifications into seamless, user-first applications.",
-    "On the frontend, I focus on crafting responsive user interfaces using React, Next.js, and Tailwind CSS. On the backend, I design reliable architectures, secure APIs, and databases that handle data flow efficiently. I am particularly interested in the intersection of traditional full-stack development and emerging AI tools, engineering products that are both performant and accessible.",
-    "Driven by curiosity and a commitment to quality, I focus on software usability, performance audits, and writing clean, scalable code. When I'm not coding, I study modern web standards, research cloud services, and build tools to help solve real-world problems."
+    "I am a Full Stack Developer and MCA student based in India. I specialize in building scalable backend systems, designing clean APIs, and creating responsive web applications that solve practical problems.",
+    "My technical toolkit centers around Python (FastAPI, Django), JavaScript (React, Next.js), and Java (Spring Boot) combined with relational database schemas. I focus on writing maintainable, typesafe code and optimizing database query performance.",
+    "I am currently seeking Software Development Engineer (SDE) and Backend Developer opportunities where I can collaborate with engineering teams, contribute to robust system architectures, and build high-performance products."
   ],
   skillsIntro: "Over the past few years, I've worked across backend development, full-stack applications, cloud technologies, and AI-powered systems. My primary focus is building scalable backend architectures while also creating modern frontend experiences.",
   skillsCategories: [
@@ -51,12 +51,12 @@ export const profileConfig = {
       skills: ["Git", "GitHub", "Postman", "VS Code"]
     },
     {
-      title: "Core CS",
-      skills: ["Data Structures & Algorithms", "Object-Oriented Programming", "Database Management Systems", "Operating Systems", "Computer Networks", "System Design"]
+      title: "Engineering Concepts",
+      skills: ["REST APIs", "Authentication", "System Design", "WebSockets", "Cloud Architecture", "Database Design"]
     }
   ],
   contact: {
-    heading: "Let's Build Something Together",
-    description: "I'm currently looking for Software Development Engineer and Backend Developer opportunities where I can contribute, learn, and build impactful products.\n\nWhether you have an opportunity, a project, or just want to connect, I'd be happy to hear from you."
+    heading: "Let's Connect.",
+    description: "I'm always open to discussing new opportunities, interesting projects, or simply connecting with fellow developers."
   }
 }

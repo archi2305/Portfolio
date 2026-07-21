@@ -16,11 +16,15 @@ export function ProjectCard({
   className,
   ...props
 }: ProjectCardProps) {
+  // Select first 4 technologies to display, matching the Staff spec
+  const displayedTech = project.techStack.slice(0, 4)
+  const remainingCount = project.techStack.length - displayedTech.length
+
   return (
     <Card
       variant="interactive"
       onClick={onSelect}
-      className={cn("h-full flex flex-col group relative overflow-hidden", className)}
+      className={cn("h-full flex flex-col group relative overflow-hidden cursor-pointer transition-all duration-300 hover:-translate-y-1 hover:shadow-lg", className)}
       {...props}
     >
       {/* Decorative Visual Placeholder Header (Premium design system accent gradient) */}
@@ -36,18 +40,18 @@ export function ProjectCard({
 
       <CardHeader className="pt-5 flex-1 flex flex-col">
         <div className="flex items-start justify-between gap-2">
-          <CardTitle className="group-hover/card:text-primary-text transition-colors">
+          <CardTitle className="group-hover:text-primary-text transition-colors">
             {project.title}
           </CardTitle>
           <ArrowUpRight className="h-4 w-4 text-secondary-text group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform shrink-0" />
         </div>
-        <CardDescription className="line-clamp-4 mt-2 flex-1 leading-relaxed">
+        <CardDescription className="line-clamp-4 mt-2 flex-1 leading-relaxed text-secondary-text">
           {project.shortDescription}
         </CardDescription>
       </CardHeader>
 
-      <CardFooter className="flex flex-wrap gap-1.5 pt-4 pb-4 px-6 border-t bg-muted/20 mt-auto">
-        {project.techStack.map((tech) => (
+      <CardFooter className="flex flex-wrap gap-1.5 pt-4 pb-4 px-6 border-t bg-muted/20 mt-auto min-h-[56px] items-center">
+        {displayedTech.map((tech) => (
           <Badge 
             key={tech} 
             variant="secondary" 
@@ -56,6 +60,14 @@ export function ProjectCard({
             {tech}
           </Badge>
         ))}
+        {remainingCount > 0 && (
+          <Badge 
+            variant="outline" 
+            className="text-[11px] px-2.5 py-0.5 font-medium border border-border bg-transparent text-muted-foreground font-mono"
+          >
+            +{remainingCount} more
+          </Badge>
+        )}
       </CardFooter>
     </Card>
   )

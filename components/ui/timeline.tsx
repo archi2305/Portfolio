@@ -78,9 +78,22 @@ function TimelineItem({ item }: TimelineItemProps) {
               Key Contributions
             </Caption>
             <ul className="list-disc pl-5 space-y-2.5 text-xs sm:text-sm text-secondary-text/90">
-              {item.achievements.map((achievement, i) => (
-                <li key={i}>{achievement}</li>
-              ))}
+              {item.achievements.map((achievement, i) => {
+                const parts = achievement.split("**")
+                return (
+                  <li key={i}>
+                    {parts.map((part, index) =>
+                      index % 2 === 1 ? (
+                        <strong key={index} className="font-bold text-primary-text">
+                          {part}
+                        </strong>
+                      ) : (
+                        part
+                      )
+                    )}
+                  </li>
+                )
+              })}
             </ul>
           </div>
         )}
