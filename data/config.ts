@@ -1,10 +1,10 @@
 export const profileConfig = {
   name: "Archi Snehi",
-  title: "Backend Developer",
-  badgeText: "BACKEND DEVELOPER",
-  tagline: "Building scalable backend architectures, multi-tenant SaaS, and real-time systems.",
-  intro: "I'm an MCA student and Backend Developer focused on FastAPI, PostgreSQL, and Django. I build multi-tenant architectures, row-level-secure data isolation, and real-time systems.",
-  sidebarIntro: "I build secure, multi-tenant backend architectures, real-time WebSocket systems, and clean APIs.",
+  title: "Software Engineer | Backend Developer",
+  badgeText: "SOFTWARE ENGINEER & BACKEND DEVELOPER",
+  tagline: "Specializing in AI-powered, real-time systems — architecting REST APIs, authentication, and relational database models.",
+  intro: "I'm an MCA student and Backend Software Engineer focused on building AI-powered, real-time systems. I specialize in FastAPI, PostgreSQL, Django, WebSockets, and LLM-integrated engineering platforms.",
+  sidebarIntro: "I build secure, AI-powered real-time backend architectures and scalable system designs.",
   email: "archisnehi@gmail.com",
   emailMailto: "mailto:archisnehi@gmail.com?subject=Portfolio%20Inquiry&body=Hi%20Archi%2C%0A%0AI%20came%20across%20your%20portfolio%20and%20would%20like%20to%20connect.%0A%0ABest%20Regards%2C",
   phone: "+91 9508864261",
@@ -20,14 +20,14 @@ export const profileConfig = {
   },
   metadata: {
     title: "Archi Snehi | Portfolio",
-    description: "Backend Developer Portfolio - Building scalable backend architectures, multi-tenant SaaS, and real-time systems.",
+    description: "Software Engineer & Backend Developer Portfolio - specializing in AI-powered, real-time systems.",
   },
   aboutParagraphs: [
-    "I am a Master of Computer Applications (MCA) student at Jaypee Institute of Information Technology and a Backend Developer focused on FastAPI, PostgreSQL, and Django. I specialize in building multi-tenant architectures, row-level-secure data isolation, OAuth/JWT authentication, and real-time communication systems.",
-    "My technical skills span languages like Python, SQL, C/C++, and JavaScript, with a strong focus on backend frameworks (FastAPI, Django, Spring Boot) and database engines (PostgreSQL, MySQL). I have experience building WebSocket-based real-time chat engines and designing RLS policies for secure SaaS platforms.",
-    "I am currently looking for Software Development Engineer (SDE) and Backend Developer opportunities where I can apply my skills in system design, database scaling, and API development to build high-performance products."
+    "I am a Master of Computer Applications (MCA) student at Jaypee Institute of Information Technology and a Backend Software Engineer specializing in AI-powered, real-time systems. I focus on architecting REST APIs, authentication, and relational database models that hold up in production.",
+    "My technical skills span backend engineering, relational databases, cloud-native services, and AI/LLM integration. I build end-to-end applications, from WebSocket-based messaging services to LLM-integrated engineering platforms like DevWorkspaceX and HireSenseAI, with a strong emphasis on clean system design over surface-level API integration.",
+    "I am currently looking for Software Development Engineer (SDE) and Backend Developer opportunities where I can apply my skills in system design, database scaling, API development, and AI workflow integration to build high-performance products."
   ],
-  skillsIntro: "Over the past few years, I've focused on backend engineering, relational databases, cloud-native services, and system design, while building clean, typesafe frontend applications.",
+  skillsIntro: "Over the past few years, I've focused on backend engineering, relational databases, AI & LLM integrations, and system design, while building clean, typesafe frontend applications.",
   skillsCategories: [
     {
       title: "Languages",
@@ -35,27 +35,31 @@ export const profileConfig = {
     },
     {
       title: "Backend",
-      skills: ["FastAPI", "Django", "Spring Boot", "REST APIs", "JWT", "SQLAlchemy"]
+      skills: ["FastAPI", "Django", "RESTful APIs", "SQLAlchemy", "JWT", "OAuth 2.0", "WebSockets"]
     },
     {
       title: "Frontend",
-      skills: ["React.js", "HTML", "CSS", "Tailwind CSS"]
+      skills: ["React.js", "Next.js", "HTML", "CSS", "Tailwind CSS"]
     },
     {
       title: "Databases",
       skills: ["PostgreSQL", "MySQL"]
     },
     {
-      title: "Cloud & Tools",
-      skills: ["AWS", "Docker", "Git", "GitHub", "Postman"]
+      title: "AI & LLM",
+      skills: ["Groq API", "Gemini API", "RAG", "Prompt Engineering", "AI Workflow Automation"]
+    },
+    {
+      title: "Cloud & DevOps",
+      skills: ["Docker", "AWS (EC2, S3)", "Git", "GitHub", "Render", "Vercel", "Postman"]
     },
     {
       title: "Core CS",
-      skills: ["DSA", "OOP", "DBMS", "Operating Systems", "Computer Networks"]
+      skills: ["Data Structures & Algorithms", "OOP", "DBMS", "Operating Systems", "Computer Networks"]
     },
     {
       title: "System Design",
-      skills: ["Client-Server", "Caching", "Load Balancing", "DB Scaling"]
+      skills: ["Client-Server Architecture", "Modular Backend Architecture", "Database Schema Design", "Authentication & Authorization", "Role-Based Access Control (RBAC)", "Caching"]
     }
   ],
   contact: {

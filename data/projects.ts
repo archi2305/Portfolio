@@ -2,38 +2,37 @@ import { Project } from "@/types/project"
 
 export const projects: Project[] = [
   {
+    id: "devworkspacex",
+    title: "DevWorkspaceX",
+    shortDescription: "AI-native software engineering platform that transforms product ideas into production-ready blueprints (SRS, architecture design, database schemas, REST APIs) with collaborative features.",
+    longDescription: "DevWorkspaceX is a collaborative, AI-powered development workspace that generates software requirements (SRS), design documents, schemas, API specifications, and roadmaps from product ideas. It includes project planning, Kanban tracking, and role-based access control.",
+    techStack: ["Next.js", "React", "FastAPI", "PostgreSQL", "Docker", "JWT", "Groq API", "RAG"],
+    features: [
+      "Architected an AI-native software engineering platform that transforms product ideas into production-ready engineering blueprints.",
+      "Delivered a collaborative workspace featuring project planning, Kanban-based sprint tracking, and role-based access control.",
+      "Integrated a context-aware engineering assistant powered by a RAG pipeline and the Groq API for technical assistance."
+    ],
+    challenges: "Designing a prompt chain and parsing output to reliably generate complex multi-format engineering design assets.",
+    learnings: "Deepened knowledge in Next.js/React frontend coordination, Groq LLM system prompts, and structuring complex document models.",
+    githubUrl: "https://github.com/archi2305/DevWorkspaceX",
+    liveUrl: undefined,
+    architecturePreview: "Next.js UI -> FastAPI -> Groq API RAG Engine -> PostgreSQL Blueprint Cache"
+  },
+  {
     id: "hiresenseai",
     title: "HireSenseAI",
-    shortDescription: "AI-powered resume screening platform that analyzes resumes against job descriptions, generates ATS scores, identifies skill gaps, and assists recruiters through conversational AI.",
-    longDescription: "HireSenseAI automates the candidate screening bottleneck by performing deep semantic matches between applicant resumes and hiring parameters. It provides analytical ATS match scoring, skill deficit flagging, and conversational recruiter queries.",
-    techStack: ["FastAPI", "PostgreSQL", "NLP", "Python", "JavaScript"],
+    shortDescription: "AI recruitment intelligence platform automating ATS evaluation, resume parsing, job matching, and recruiter queries using RAG and semantic analytics.",
+    longDescription: "HireSenseAI is an AI recruitment platform that automates ATS evaluations, resume parsing, and semantic skill-gap analysis. It features recruiter chatbot assistance, context-aware insights, and secure JWT authentication.",
+    techStack: ["React", "FastAPI", "PostgreSQL", "SQLAlchemy", "Groq API", "RAG", "JWT"],
     features: [
-      "Built an AI resume screener using FastAPI and NLP that parses resumes, scores them against a job description, and flags skill gaps.",
-      "Added a chatbot for recruiters to query candidate fit and resume details conversationally instead of digging through dashboards.",
-      "Exposed 30+ APIs covering recruiter dashboards, candidate ranking, and ATS scoring in one FastAPI service.",
-      "Designed the PostgreSQL schema to store parsed resume data, job postings, and match scores for repeat evaluation without re-parsing."
+      "Engineered an AI recruitment intelligence platform that automates ATS evaluation and semantic skill-gap analysis.",
+      "Integrated LLM-powered workflows and a RAG pipeline using Groq LLMs to deliver context-aware resume insights.",
+      "Delivered secure, JWT-authenticated APIs backed by a relational PostgreSQL data model for scale."
     ],
     challenges: "Handling multi-page unstructured PDF/Docx files and maintaining layout parsing accuracy for ATS evaluations.",
     learnings: "Deepened experience in semantic searches using NLP sentence embedding metrics and vector storage layouts.",
     githubUrl: "https://github.com/archi2305/HireSenseAI",
     liveUrl: undefined,
-    architecturePreview: "FastAPI Service -> NLP Parser -> PostgreSQL Cache -> Recruiter Chatbot UI"
-  },
-  {
-    id: "shoptrackr",
-    title: "ShopTrackr",
-    shortDescription: "Multi-tenant retail SaaS platform featuring isolated business databases, separate billing logic, row-level access control, and automated stock reports.",
-    longDescription: "ShopTrackr is a multi-tenant retail SaaS backend built from scratch. It features strict tenant data isolation, isolated inventory pipelines, and automated reporting systems.",
-    techStack: ["FastAPI", "PostgreSQL", "Python", "JavaScript"],
-    features: [
-      "Built a multi-tenant backend where each business gets isolated data, separate billing logic, and its own inventory state.",
-      "Implemented row-level access control in PostgreSQL so one tenant's data is never exposed to another, even on shared infrastructure.",
-      "Added automated reporting for stock levels, credit balances, and payment history, exportable per tenant on demand."
-    ],
-    challenges: "Enforcing strict row-level security policies (RLS) across a shared PostgreSQL database cluster without performance bottlenecks.",
-    learnings: "Mastered PostgreSQL RLS configs, multi-tenant middleware request routing, and transaction isolation levels.",
-    githubUrl: "https://github.com/archi2305/ShopTrackr",
-    liveUrl: undefined,
-    architecturePreview: "SaaS Tenant Routing -> FastAPI Middleware -> PostgreSQL RLS Policies -> Automated Reporting Cron"
+    architecturePreview: "React Frontend -> FastAPI Service -> Groq LLM & RAG -> PostgreSQL DB"
   }
 ]

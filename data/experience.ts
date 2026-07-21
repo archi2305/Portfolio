@@ -7,35 +7,37 @@ export const experiences: Experience[] = [
     role: "Software Developer Intern",
     duration: "Apr 2026 – Jun 2026",
     location: "Remote",
-    description: "Contributed to a production-ready social networking platform by architecting scalable backend services, implementing secure authentication, and building real-time communication features.",
+    description: "Engineered core backend infrastructure for Ideactra Social, a live social platform — architecting REST APIs and relational database models spanning user profiles, content publishing, networking, and engagement workflows.",
     technologies: [
       "FastAPI",
       "PostgreSQL",
       "React",
-      "JavaScript",
       "WebSockets",
+      "Gemini API",
+      "RAG",
+      "JavaScript",
       "Google OAuth 2.0",
       "GitHub OAuth",
       "JWT"
     ],
     achievements: [
-      "Architected and built a **WebSocket** real-time chat system from scratch, including database schemas for users and conversations.",
-      "Developed **20+ REST APIs** covering core authentication, user profiles, and social networking features.",
-      "Integrated **Google OAuth 2.0**, **GitHub OAuth**, and **JWT** auth for secure and seamless user sessions."
+      "Engineered core backend infrastructure for Ideactra Social, a live social platform — architecting REST APIs and relational database models.",
+      "Implemented Google OAuth 2.0, GitHub OAuth, and JWT-based authentication, replacing the launch login flow with a unified system.",
+      "Architected a WebSocket-based real-time messaging system handling conversation management, message persistence, and live presence tracking, and integrated a RAG-powered AI assistant using the Gemini API."
     ],
   },
   {
     id: "hashedbit-innovations",
-    company: "HashedBit Innovations",
-    role: "Python & Web Development Intern",
+    company: "HashedBit Innovation",
+    role: "Software Developer Intern",
     duration: "May 2024 – Jul 2024",
     location: "Gurugram, India",
-    description: "Owned backend development for DressHub, a fashion e-commerce platform, focusing on inventory management, order processing, and shopping experience reliability.",
-    technologies: ["Python", "Django", "MySQL", "JavaScript"],
+    description: "Architected backend services for an e-commerce platform, designing REST APIs and relational database models for products, inventory, customers, and order management.",
+    technologies: ["Django", "Python", "MySQL", "REST APIs", "JavaScript"],
     achievements: [
-      "Owned backend development for DressHub, implementing catalog, shopping cart, and order tracking modules.",
-      "Built an inventory sync pipeline using **MySQL** to prevent overselling during concurrent checkouts.",
-      "Implemented advanced product search, filtering, and real-time inventory validation for in-stock catalog views."
+      "Architected backend services for an e-commerce platform, designing REST APIs and relational database models for products, inventory, customers, and order management.",
+      "Delivered authentication, product catalog management, shopping cart, and order processing — enabling end-to-end online purchasing.",
+      "Engineered concurrency-safe inventory management to preserve stock consistency and prevent overselling during simultaneous purchase requests."
     ],
   },
 ]
