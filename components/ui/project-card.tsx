@@ -1,6 +1,6 @@
 import * as React from "react"
 import { Project } from "@/types/project"
-import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card"
+import { Card, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { ArrowUpRight, FolderGit } from "lucide-react"
 import { cn } from "@/lib/utils"
@@ -34,33 +34,28 @@ export function ProjectCard({
         </div>
       </div>
 
-      <CardHeader className="pt-5">
+      <CardHeader className="pt-5 flex-1 flex flex-col">
         <div className="flex items-start justify-between gap-2">
           <CardTitle className="group-hover/card:text-primary-text transition-colors">
             {project.title}
           </CardTitle>
           <ArrowUpRight className="h-4 w-4 text-secondary-text group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform shrink-0" />
         </div>
-        <CardDescription className="line-clamp-2 mt-1">
+        <CardDescription className="line-clamp-4 mt-2 flex-1 leading-relaxed">
           {project.shortDescription}
         </CardDescription>
       </CardHeader>
 
-      <CardContent className="flex-1 pb-4">
-        {/* We can place additional metadata here if necessary */}
-      </CardContent>
-
-      <CardFooter className="flex flex-wrap gap-1.5 pt-3 border-t bg-muted/20">
-        {project.techStack.slice(0, 3).map((tech) => (
-          <Badge key={tech} variant="secondary" className="text-[10px] px-2 py-0">
+      <CardFooter className="flex flex-wrap gap-1.5 pt-4 pb-4 px-6 border-t bg-muted/20 mt-auto">
+        {project.techStack.map((tech) => (
+          <Badge 
+            key={tech} 
+            variant="secondary" 
+            className="text-[11px] px-2.5 py-0.5 font-medium transition-all hover:bg-secondary/80 hover:text-primary-text hover:border-primary-text/20 border border-transparent font-mono"
+          >
             {tech}
           </Badge>
         ))}
-        {project.techStack.length > 3 && (
-          <Badge variant="outline" className="text-[10px] px-2 py-0">
-            +{project.techStack.length - 3}
-          </Badge>
-        )}
       </CardFooter>
     </Card>
   )
