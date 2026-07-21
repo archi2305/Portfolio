@@ -10,14 +10,21 @@ import { ThemeToggle } from "@/components/ui/theme-toggle"
 import { Badge } from "@/components/ui/badge"
 import { SocialButton } from "@/components/ui/social-buttons"
 import { Stack } from "@/components/layout/stack"
+import { Grid } from "@/components/layout/grid"
 import { SlideUp, RevealOnScroll } from "@/components/shared/animations"
 import { Display, H1, H2, H3, Body, Caption } from "@/components/ui/typography"
 import { useActiveSection } from "@/hooks/use-active-section"
+import { ProjectCard } from "@/components/ui/project-card"
+import { ProjectModal } from "@/components/ui/project-modal"
+import { projects } from "@/data/projects"
+import { Project } from "@/types/project"
 import { Menu, X } from "lucide-react"
 import { cn } from "@/lib/utils"
 
 export default function Home() {
   const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false)
+  const [selectedProject, setSelectedProject] = React.useState<Project | null>(null)
+  const [isModalOpen, setIsModalOpen] = React.useState(false)
 
   const sectionIds = ["about", "experience", "projects", "skills", "contact"]
   const activeSection = useActiveSection(sectionIds, 200)
@@ -227,16 +234,25 @@ export default function Home() {
             </RevealOnScroll>
           </Section>
 
-          {/* Projects Section Placeholder */}
+          {/* Projects Section */}
           <Section id="projects" className="scroll-mt-24 min-h-[50vh]">
             <RevealOnScroll>
-              <Stack gap={4}>
+              <Stack gap={6}>
                 <Heading as="h2" size="h2" className="border-b pb-2 border-border">
                   Projects
                 </Heading>
-                <Body className="max-w-2xl text-secondary-text">
-                  [Projects Section Content Placeholder] Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                </Body>
+                <Grid cols={1} colsSm={2} gap={6}>
+                  {projects.map((project) => (
+                    <ProjectCard
+                      key={project.id}
+                      project={project}
+                      onSelect={() => {
+                        setSelectedProject(project)
+                        setIsModalOpen(true)
+                      }}
+                    />
+                  ))}
+                </Grid>
               </Stack>
             </RevealOnScroll>
           </Section>
@@ -269,6 +285,11 @@ export default function Home() {
             </RevealOnScroll>
           </Section>
 
+          <ProjectModal
+            project={selectedProject}
+            isOpen={isModalOpen}
+            onClose={() => setIsModalOpen(false)}
+          />
         </main>
       </Container>
     </div>
