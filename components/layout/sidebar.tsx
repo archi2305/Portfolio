@@ -24,8 +24,8 @@ export function Sidebar({ activeSection, navItems, socialLinks }: SidebarProps) 
           <H3 className="text-xl font-medium text-primary-text/90">
             {profileConfig.title}
           </H3>
-          <Body className="text-secondary-text max-w-sm mt-2 text-sm">
-            {profileConfig.intro}
+          <Body className="text-secondary-text max-w-sm mt-2 text-sm whitespace-pre-line leading-relaxed">
+            {profileConfig.sidebarIntro}
           </Body>
         </Stack>
 

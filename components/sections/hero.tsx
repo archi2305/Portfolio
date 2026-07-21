@@ -12,23 +12,22 @@ export function Hero() {
   return (
     <Section id="hero" className="py-0">
       <SlideUp duration={0.6}>
-        <Stack gap={6} className="max-w-2xl">
+        <Stack gap={8} className="max-w-2xl">
           <Badge variant="secondary" className="w-fit px-3 py-1 font-semibold uppercase tracking-wider text-xs">
-            Welcome to my portfolio
+            {profileConfig.badgeText}
           </Badge>
-          <div className="space-y-3">
-            <span className="text-base text-secondary-text font-medium block">Hi, my name is</span>
+          <div className="space-y-4">
             <H1 className="text-4xl sm:text-6xl font-black text-primary-text leading-none tracking-tight">
-              {profileConfig.name}.
+              {profileConfig.name}
             </H1>
-            <H2 className="text-3xl sm:text-5xl font-extrabold text-secondary-text leading-tight tracking-tight">
+            <H2 className="text-3xl sm:text-5xl font-extrabold text-secondary-text leading-snug tracking-tight">
               {profileConfig.tagline}
             </H2>
           </div>
-          <Body className="text-secondary-text">
+          <Body className="text-secondary-text leading-relaxed">
             {profileConfig.intro}
           </Body>
-          <div className="flex flex-wrap gap-4 pt-4">
+          <div className="flex flex-wrap gap-4 pt-2">
             <a
               href="#projects"
               className={cn(buttonVariants({ variant: "default", size: "lg" }))}
