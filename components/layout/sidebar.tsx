@@ -30,7 +30,7 @@ export function Sidebar({ activeSection, navItems, socialLinks }: SidebarProps) 
         </Stack>
 
         {/* Desktop Navigation Links */}
-        <nav className="flex flex-col gap-1 w-fit">
+        <nav aria-label="Desktop navigation menu" className="flex flex-col gap-1 w-fit">
           {navItems.map((item) => {
             const isActive = activeSection === item.id
             return (
@@ -61,7 +61,7 @@ export function Sidebar({ activeSection, navItems, socialLinks }: SidebarProps) 
 
       {/* Socials & Theme Toggle at bottom */}
       <Stack gap={4} className="mt-auto">
-        <div className="flex items-center gap-4">
+        <div role="group" aria-label="Social links" className="flex items-center gap-4">
           {socialLinks.map((link) => (
             <SocialButton
               key={link.platform}

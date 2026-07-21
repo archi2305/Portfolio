@@ -31,6 +31,8 @@ export function MobileHeader({
             <IconButton
               variant="ghost"
               aria-label="Toggle navigation menu"
+              aria-expanded={mobileMenuOpen}
+              aria-controls="mobile-nav-panel"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             >
               {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
@@ -41,6 +43,8 @@ export function MobileHeader({
 
       {/* Mobile Navigation Dropdown */}
       <div
+        id="mobile-nav-panel"
+        aria-hidden={!mobileMenuOpen}
         className={cn(
           "overflow-hidden transition-all duration-300 ease-in-out border-t border-border bg-background",
           mobileMenuOpen ? "max-h-64 opacity-100 py-4" : "max-h-0 opacity-0 pointer-events-none"
@@ -56,7 +60,7 @@ export function MobileHeader({
                   href={`#${item.id}`}
                   onClick={() => setMobileMenuOpen(false)}
                   className={cn(
-                    "text-sm font-medium transition-colors px-2 py-1 rounded-md",
+                    "text-sm font-medium transition-colors px-2 py-1 rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
                     isActive
                       ? "text-primary-text font-semibold bg-muted"
                       : "text-secondary-text hover:text-primary-text hover:bg-muted/40"

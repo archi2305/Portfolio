@@ -18,6 +18,8 @@ export interface ProjectModalProps {
 }
 
 export function ProjectModal({ project, isOpen, onClose }: ProjectModalProps) {
+  const containerRef = React.useRef<HTMLDivElement>(null)
+
   // Handle escape key to close
   React.useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -28,6 +30,10 @@ export function ProjectModal({ project, isOpen, onClose }: ProjectModalProps) {
     if (isOpen) {
       document.body.style.overflow = "hidden"
       window.addEventListener("keydown", handleKeyDown)
+      // Focus modal container for accessibility announcement
+      setTimeout(() => {
+        containerRef.current?.focus()
+      }, 50)
     }
     return () => {
       document.body.style.overflow = "unset"
@@ -51,11 +57,13 @@ export function ProjectModal({ project, isOpen, onClose }: ProjectModalProps) {
 
           {/* Modal Container */}
           <motion.div
+            ref={containerRef}
+            tabIndex={-1}
             initial={{ opacity: 0, scale: 0.95, y: 15 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 15 }}
             transition={{ type: "spring", duration: 0.4 }}
-            className="relative w-full max-w-3xl max-h-[85vh] overflow-y-auto rounded-xl border border-border bg-card shadow-2xl p-6 md:p-8 z-10 scrollbar-thin focus:outline-none"
+            className="relative w-full max-w-3xl max-h-[85vh] overflow-y-auto rounded-xl border border-border bg-card shadow-2xl p-6 md:p-8 z-10 scrollbar-thin focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
             role="dialog"
             aria-modal="true"
             aria-labelledby="modal-title"
