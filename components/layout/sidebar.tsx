@@ -18,7 +18,7 @@ export function Sidebar({ activeSection, navItems, socialLinks }: SidebarProps) 
       <Stack gap={10} className="w-full">
         {/* Header info */}
         <Stack gap={3}>
-          <Display className="text-4xl sm:text-5xl font-extrabold text-primary-text">
+          <Display className="text-4xl sm:text-5xl font-extrabold text-primary-text whitespace-nowrap">
             {profileConfig.name}
           </Display>
           <H3 className="text-xl font-medium text-primary-text/90">
