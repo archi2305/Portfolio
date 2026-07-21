@@ -7,7 +7,6 @@ import { Heading } from "@/components/ui/heading"
 import { Stack } from "@/components/layout/stack"
 import { Grid } from "@/components/layout/grid"
 import { RevealOnScroll } from "@/components/shared/animations"
-import { Body } from "@/components/ui/typography"
 import { useActiveSection } from "@/hooks/use-active-section"
 import { ProjectCard } from "@/components/ui/project-card"
 import { Timeline } from "@/components/ui/timeline"
@@ -18,6 +17,8 @@ import { Project } from "@/types/project"
 import { MobileHeader } from "@/components/layout/mobile-header"
 import { Sidebar } from "@/components/layout/sidebar"
 import { About } from "@/components/sections/about"
+import { Skills } from "@/components/sections/skills"
+import { Contact } from "@/components/sections/contact"
 import dynamic from "next/dynamic"
 
 const ProjectModal = dynamic(() => import("@/components/ui/project-modal").then((mod) => mod.ProjectModal), {
@@ -109,33 +110,11 @@ export default function Home() {
             </RevealOnScroll>
           </Section>
 
-          {/* Skills Section Placeholder */}
-          <Section id="skills" className="scroll-mt-24 min-h-[50vh]">
-            <RevealOnScroll>
-              <Stack gap={4}>
-                <Heading as="h2" size="h2" className="border-b pb-2 border-border">
-                  Skills
-                </Heading>
-                <Body className="max-w-2xl text-secondary-text">
-                  [Skills Section Content Placeholder] Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-                </Body>
-              </Stack>
-            </RevealOnScroll>
-          </Section>
+          {/* Skills Section */}
+          <Skills />
 
-          {/* Contact Section Placeholder */}
-          <Section id="contact" className="scroll-mt-24 min-h-[50vh]">
-            <RevealOnScroll>
-              <Stack gap={4}>
-                <Heading as="h2" size="h2" className="border-b pb-2 border-border">
-                  Contact
-                </Heading>
-                <Body className="max-w-2xl text-secondary-text">
-                  [Contact Section Content Placeholder] Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                </Body>
-              </Stack>
-            </RevealOnScroll>
-          </Section>
+          {/* Contact Section */}
+          <Contact />
 
           <ProjectModal
             project={selectedProject}
