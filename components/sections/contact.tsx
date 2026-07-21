@@ -10,6 +10,11 @@ import { profileConfig } from "@/data/config"
 import { cn } from "@/lib/utils"
 
 export function Contact() {
+  const isResumeDisabled = !profileConfig.resumeUrl || profileConfig.resumeUrl === "#"
+  const isGithubDisabled = !profileConfig.socials.github || profileConfig.socials.github === "#"
+  const isLinkedinDisabled = !profileConfig.socials.linkedin || profileConfig.socials.linkedin === "#"
+  const isEmailDisabled = !profileConfig.email || profileConfig.email === "#"
+
   return (
     <Section id="contact" className="scroll-mt-24 min-h-[50vh]">
       <RevealOnScroll>
@@ -29,27 +34,46 @@ export function Contact() {
 
           {/* Contact Details Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-2xl">
-            <div className="flex items-center gap-3 p-4 rounded-lg border border-border bg-card/40">
+            
+            {/* Email Card (Whole Card Clickable) */}
+            <a 
+              href={isEmailDisabled ? undefined : profileConfig.emailMailto}
+              aria-disabled={isEmailDisabled}
+              className={cn(
+                "flex items-center gap-3 p-4 rounded-lg border border-border bg-card/40 hover:bg-card/75 hover:border-primary-text/20 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
+                isEmailDisabled && "pointer-events-none opacity-50"
+              )}
+            >
               <Mail className="h-5 w-5 text-muted-foreground shrink-0" />
               <div className="min-w-0">
                 <Caption className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground">Email</Caption>
-                <a href={profileConfig.email} className="text-sm font-medium text-primary-text hover:underline truncate block">
-                  {profileConfig.email.replace("mailto:", "")}
-                </a>
+                <span className="text-sm font-medium text-primary-text truncate block">
+                  {profileConfig.email}
+                </span>
               </div>
-            </div>
+            </a>
 
-            <div className="flex items-center gap-3 p-4 rounded-lg border border-border bg-card/40">
+            {/* Phone Card (Whole Card Clickable) */}
+            <a 
+              href={profileConfig.phoneUrl}
+              className="flex items-center gap-3 p-4 rounded-lg border border-border bg-card/40 hover:bg-card/75 hover:border-primary-text/20 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+            >
               <Phone className="h-5 w-5 text-muted-foreground shrink-0" />
               <div className="min-w-0">
                 <Caption className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground">Phone</Caption>
-                <a href={`tel:${profileConfig.phone}`} className="text-sm font-medium text-primary-text hover:underline truncate block">
+                <span className="text-sm font-medium text-primary-text truncate block">
                   {profileConfig.phone}
-                </a>
+                </span>
               </div>
-            </div>
+            </a>
 
-            <div className="flex items-center gap-3 p-4 rounded-lg border border-border bg-card/40">
+            {/* Location Card (Whole Card Clickable) */}
+            <a 
+              href={profileConfig.locationMapsUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-3 p-4 rounded-lg border border-border bg-card/40 hover:bg-card/75 hover:border-primary-text/20 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+            >
               <MapPin className="h-5 w-5 text-muted-foreground shrink-0" />
               <div className="min-w-0">
                 <Caption className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground">Location</Caption>
@@ -57,42 +81,65 @@ export function Contact() {
                   {profileConfig.location}
                 </span>
               </div>
-            </div>
+            </a>
           </div>
 
           {/* Action Buttons Link Grid */}
           <div className="flex flex-wrap gap-4 pt-4 max-w-2xl">
             <a
-              href={profileConfig.resumeUrl}
-              className={cn(buttonVariants({ variant: "default", size: "lg" }), "gap-2")}
+              href={isResumeDisabled ? undefined : profileConfig.resumeUrl}
+              download="Archi_Snehi_Resume.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-disabled={isResumeDisabled}
+              className={cn(
+                buttonVariants({ variant: "default", size: "lg" }), 
+                "gap-2",
+                isResumeDisabled && "pointer-events-none opacity-50"
+              )}
             >
               <FileText className="h-4 w-4" />
               Download Resume
             </a>
             
             <a
-              href={profileConfig.socials.github}
+              href={isGithubDisabled ? undefined : profileConfig.socials.github}
               target="_blank"
               rel="noopener noreferrer"
-              className={cn(buttonVariants({ variant: "outline", size: "lg" }), "gap-2")}
+              aria-disabled={isGithubDisabled}
+              className={cn(
+                buttonVariants({ variant: "outline", size: "lg" }), 
+                "gap-2",
+                isGithubDisabled && "pointer-events-none opacity-50"
+              )}
             >
               <GitFork className="h-4 w-4" />
               GitHub
             </a>
 
             <a
-              href={profileConfig.socials.linkedin}
+              href={isLinkedinDisabled ? undefined : profileConfig.socials.linkedin}
               target="_blank"
               rel="noopener noreferrer"
-              className={cn(buttonVariants({ variant: "outline", size: "lg" }), "gap-2")}
+              aria-disabled={isLinkedinDisabled}
+              className={cn(
+                buttonVariants({ variant: "outline", size: "lg" }), 
+                "gap-2",
+                isLinkedinDisabled && "pointer-events-none opacity-50"
+              )}
             >
               <Briefcase className="h-4 w-4" />
               LinkedIn
             </a>
 
             <a
-              href={profileConfig.email}
-              className={cn(buttonVariants({ variant: "ghost", size: "lg" }), "gap-2")}
+              href={isEmailDisabled ? undefined : profileConfig.emailMailto}
+              aria-disabled={isEmailDisabled}
+              className={cn(
+                buttonVariants({ variant: "ghost", size: "lg" }), 
+                "gap-2",
+                isEmailDisabled && "pointer-events-none opacity-50"
+              )}
             >
               <Mail className="h-4 w-4" />
               Email Me

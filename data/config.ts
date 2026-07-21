@@ -5,10 +5,13 @@ export const profileConfig = {
   tagline: "Building intelligent web experiences with AI, cloud, and modern engineering.",
   intro: "I'm an MCA student and Full Stack Developer passionate about building scalable web applications, AI-powered products, and cloud-native solutions. I enjoy solving real-world problems through clean architecture, intuitive user experiences, and modern technologies.",
   sidebarIntro: "I build scalable, high-performance web applications and cloud-native solutions with a focus on clean architecture.",
-  email: "mailto:archisnehi@gmail.com",
+  email: "archisnehi@gmail.com",
+  emailMailto: "mailto:archisnehi@gmail.com?subject=Portfolio%20Inquiry&body=Hi%20Archi%2C%0A%0AI%20came%20across%20your%20portfolio%20and%20would%20like%20to%20connect.%0A%0ABest%20Regards%2C",
   phone: "+91 9508864261",
+  phoneUrl: "tel:+919508864261",
   location: "Noida, India",
-  resumeUrl: "#", // TODO: Add Your Resume URL
+  locationMapsUrl: "https://maps.google.com/?q=Noida,India",
+  resumeUrl: "/assets/resume/Archi_Snehi_Resume.pdf",
   siteUrl: "https://github.com/archi2305/Portfolio", // Dynamic site base URL
   socials: {
     github: "https://github.com/archi2305",

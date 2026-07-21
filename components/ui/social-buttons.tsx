@@ -29,16 +29,21 @@ export function SocialButton({
 }: SocialButtonProps) {
   const config = iconMap[platform]
   const IconComponent = config.icon
+  const isDisabled = !href || href === "#"
 
   return (
     <a
-      href={href}
-      target="_blank"
+      href={isDisabled ? undefined : href}
+      target={platform === "email" ? undefined : "_blank"}
       rel="noopener noreferrer"
       aria-label={ariaLabel || config.label}
+      title={ariaLabel || config.label}
+      aria-disabled={isDisabled}
+      download={platform === "resume" ? "Archi_Snehi_Resume.pdf" : undefined}
       className={cn(
         buttonVariants({ variant, size }),
-        "hover:text-primary-text hover:bg-muted/50 rounded-full cursor-pointer",
+        "hover:text-primary-text hover:bg-muted/50 rounded-full cursor-pointer transition-transform hover:scale-110 duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
+        isDisabled && "pointer-events-none opacity-50",
         className
       )}
       {...props}

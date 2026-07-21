@@ -45,7 +45,7 @@ export default function Home() {
     { platform: "github" as const, href: profileConfig.socials.github },
     { platform: "linkedin" as const, href: profileConfig.socials.linkedin },
     { platform: "twitter" as const, href: profileConfig.socials.twitter },
-    { platform: "email" as const, href: profileConfig.email },
+    { platform: "email" as const, href: profileConfig.emailMailto },
     { platform: "resume" as const, href: profileConfig.resumeUrl },
   ]
 
