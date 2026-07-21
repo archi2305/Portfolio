@@ -10,7 +10,6 @@ import { RevealOnScroll } from "@/components/shared/animations"
 import { Body } from "@/components/ui/typography"
 import { useActiveSection } from "@/hooks/use-active-section"
 import { ProjectCard } from "@/components/ui/project-card"
-import { ProjectModal } from "@/components/ui/project-modal"
 import { Timeline } from "@/components/ui/timeline"
 import { projects } from "@/data/projects"
 import { experiences } from "@/data/experience"
@@ -19,6 +18,11 @@ import { Project } from "@/types/project"
 import { MobileHeader } from "@/components/layout/mobile-header"
 import { Sidebar } from "@/components/layout/sidebar"
 import { Hero } from "@/components/sections/hero"
+import dynamic from "next/dynamic"
+
+const ProjectModal = dynamic(() => import("@/components/ui/project-modal").then((mod) => mod.ProjectModal), {
+  ssr: false,
+})
 
 export default function Home() {
   const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false)

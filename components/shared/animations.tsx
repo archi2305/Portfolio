@@ -1,7 +1,11 @@
 "use client"
 
 import * as React from "react"
-import { motion, HTMLMotionProps } from "framer-motion"
+import { LazyMotion, domMax, m, HTMLMotionProps } from "framer-motion"
+
+export function MotionProvider({ children }: { children: React.ReactNode }) {
+  return <LazyMotion features={domMax}>{children}</LazyMotion>
+}
 
 export interface AnimationProps extends HTMLMotionProps<"div"> {
   duration?: number
@@ -10,7 +14,7 @@ export interface AnimationProps extends HTMLMotionProps<"div"> {
 
 export function FadeIn({ children, duration = 0.5, delay = 0, ...props }: AnimationProps) {
   return (
-    <motion.div
+    <m.div
       initial={{ opacity: 0 }}
       whileInView={{ opacity: 1 }}
       viewport={{ once: true, margin: "-100px" }}
@@ -18,7 +22,7 @@ export function FadeIn({ children, duration = 0.5, delay = 0, ...props }: Animat
       {...props}
     >
       {children}
-    </motion.div>
+    </m.div>
   )
 }
 
@@ -34,7 +38,7 @@ export function SlideUp({
   ...props
 }: SlideUpProps) {
   return (
-    <motion.div
+    <m.div
       initial={{ opacity: 0, y: yOffset }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-100px" }}
@@ -42,7 +46,7 @@ export function SlideUp({
       {...props}
     >
       {children}
-    </motion.div>
+    </m.div>
   )
 }
 
@@ -58,7 +62,7 @@ export function ScaleIn({
   ...props
 }: ScaleInProps) {
   return (
-    <motion.div
+    <m.div
       initial={{ opacity: 0, scale: initialScale }}
       whileInView={{ opacity: 1, scale: 1 }}
       viewport={{ once: true, margin: "-100px" }}
@@ -66,7 +70,7 @@ export function ScaleIn({
       {...props}
     >
       {children}
-    </motion.div>
+    </m.div>
   )
 }
 
@@ -82,7 +86,7 @@ export function Stagger({
   ...props
 }: StaggerProps) {
   return (
-    <motion.div
+    <m.div
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, margin: "-100px" }}
@@ -98,7 +102,7 @@ export function Stagger({
       {...props}
     >
       {children}
-    </motion.div>
+    </m.div>
   )
 }
 
@@ -112,7 +116,7 @@ export function RevealOnScroll({
   ...props
 }: RevealOnScrollProps) {
   return (
-    <motion.div
+    <m.div
       initial={{ opacity: 0, y: 25 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: threshold }}
@@ -120,6 +124,6 @@ export function RevealOnScroll({
       {...props}
     >
       {children}
-    </motion.div>
+    </m.div>
   )
 }
