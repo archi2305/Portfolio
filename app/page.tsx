@@ -16,7 +16,9 @@ import { Display, H1, H2, H3, Body, Caption } from "@/components/ui/typography"
 import { useActiveSection } from "@/hooks/use-active-section"
 import { ProjectCard } from "@/components/ui/project-card"
 import { ProjectModal } from "@/components/ui/project-modal"
+import { Timeline } from "@/components/ui/timeline"
 import { projects } from "@/data/projects"
+import { experiences } from "@/data/experience"
 import { Project } from "@/types/project"
 import { Menu, X } from "lucide-react"
 import { cn } from "@/lib/utils"
@@ -220,16 +222,14 @@ export default function Home() {
             </RevealOnScroll>
           </Section>
 
-          {/* Experience Section Placeholder */}
+          {/* Experience Section */}
           <Section id="experience" className="scroll-mt-24 min-h-[50vh]">
             <RevealOnScroll>
-              <Stack gap={4}>
+              <Stack gap={6}>
                 <Heading as="h2" size="h2" className="border-b pb-2 border-border">
                   Experience
                 </Heading>
-                <Body className="max-w-2xl text-secondary-text">
-                  [Experience Section Content Placeholder] Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                </Body>
+                <Timeline items={experiences} />
               </Stack>
             </RevealOnScroll>
           </Section>
