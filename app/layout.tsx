@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
+import { profileConfig } from "@/data/config";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -14,25 +15,25 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://example.com"),
+  metadataBase: new URL(profileConfig.siteUrl),
   title: {
-    default: "Portfolio Foundation",
-    template: "%s | Portfolio Foundation",
+    default: profileConfig.metadata.title,
+    template: `%s | ${profileConfig.metadata.title}`,
   },
-  description: "Professional portfolio built with Next.js, Tailwind CSS, shadcn/ui and Framer Motion.",
+  description: profileConfig.metadata.description,
   openGraph: {
-    title: "Portfolio Foundation",
-    description: "Professional portfolio built with Next.js, Tailwind CSS, shadcn/ui and Framer Motion.",
-    url: "https://example.com",
-    siteName: "Portfolio Foundation",
+    title: profileConfig.metadata.title,
+    description: profileConfig.metadata.description,
+    url: profileConfig.siteUrl,
+    siteName: profileConfig.metadata.title,
     locale: "en_US",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Portfolio Foundation",
-    description: "Professional portfolio built with Next.js, Tailwind CSS, shadcn/ui and Framer Motion.",
-    creator: "@username",
+    title: profileConfig.metadata.title,
+    description: profileConfig.metadata.description,
+    creator: "@todo-username",
   },
   robots: {
     index: true,

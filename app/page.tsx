@@ -19,6 +19,7 @@ import { ProjectModal } from "@/components/ui/project-modal"
 import { Timeline } from "@/components/ui/timeline"
 import { projects } from "@/data/projects"
 import { experiences } from "@/data/experience"
+import { profileConfig } from "@/data/config"
 import { Project } from "@/types/project"
 import { Menu, X } from "lucide-react"
 import { cn } from "@/lib/utils"
@@ -40,11 +41,11 @@ export default function Home() {
   ]
 
   const socialLinks = [
-    { platform: "github" as const, href: "https://github.com" },
-    { platform: "linkedin" as const, href: "https://linkedin.com" },
-    { platform: "twitter" as const, href: "https://twitter.com" },
-    { platform: "email" as const, href: "mailto:alex@morgan.com" },
-    { platform: "resume" as const, href: "#" },
+    { platform: "github" as const, href: profileConfig.socials.github },
+    { platform: "linkedin" as const, href: profileConfig.socials.linkedin },
+    { platform: "twitter" as const, href: profileConfig.socials.twitter },
+    { platform: "email" as const, href: profileConfig.email },
+    { platform: "resume" as const, href: profileConfig.resumeUrl },
   ]
 
   return (
@@ -54,7 +55,7 @@ export default function Home() {
         <Container>
           <div className="flex h-16 items-center justify-between">
             <a href="#" className="text-lg font-bold tracking-tight text-primary-text">
-              Alex Morgan
+              {profileConfig.name}
             </a>
             <div className="flex items-center gap-2">
               <ThemeToggle />
@@ -110,13 +111,13 @@ export default function Home() {
             {/* Header info */}
             <Stack gap={3}>
               <Display className="text-4xl sm:text-5xl font-extrabold text-primary-text">
-                Alex Morgan
+                {profileConfig.name}
               </Display>
               <H3 className="text-xl font-medium text-primary-text/90">
-                Senior Frontend Architect
+                {profileConfig.title}
               </H3>
               <Body className="text-secondary-text max-w-sm mt-2 text-sm">
-                I build high-performance, accessible, and clean digital experiences for the modern web.
+                {profileConfig.intro}
               </Body>
             </Stack>
 
@@ -181,14 +182,14 @@ export default function Home() {
                 <div className="space-y-3">
                   <span className="text-base text-secondary-text font-medium block">Hi, my name is</span>
                   <H1 className="text-4xl sm:text-6xl font-black text-primary-text leading-none tracking-tight">
-                    Alex Morgan.
+                    {profileConfig.name}.
                   </H1>
                   <H2 className="text-3xl sm:text-5xl font-extrabold text-secondary-text leading-tight tracking-tight">
-                    I construct things for the web.
+                    {profileConfig.tagline}
                   </H2>
                 </div>
                 <Body className="text-secondary-text">
-                  I am a senior frontend architect specializing in crafting modular, production-ready design systems and application foundations using Next.js, React, Tailwind CSS, and TypeScript.
+                  {profileConfig.intro}
                 </Body>
                 <div className="flex flex-wrap gap-4 pt-4">
                   <a
@@ -198,7 +199,7 @@ export default function Home() {
                     View Projects
                   </a>
                   <a
-                    href="#"
+                    href={profileConfig.resumeUrl}
                     className={cn(buttonVariants({ variant: "outline", size: "lg" }))}
                   >
                     Download Resume
