@@ -15,7 +15,7 @@ export const profileConfig = {
   siteUrl: "https://github.com/archi2305/Portfolio", // Dynamic site base URL
   socials: {
     github: "https://github.com/archi2305",
-    linkedin: "https://linkedin.com/in/archi-snehi", // TODO: Customize LinkedIn URL
+    linkedin: "https://www.linkedin.com/in/archi-snehi-39327b253/",
     twitter: "https://twitter.com/archi_snehi", // TODO: Customize Twitter URL
   },
   metadata: {
