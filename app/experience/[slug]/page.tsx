@@ -1,5 +1,8 @@
 import * as React from "react"
 import Link from "next/link"
+import Image from "next/image"
+import fs from "fs"
+import path from "path"
 import { notFound } from "next/navigation"
 import { experiencesData } from "@/data/experienceData"
 import { Container } from "@/components/ui/container"
@@ -7,7 +10,7 @@ import { Heading } from "@/components/ui/heading"
 import { Stack } from "@/components/layout/stack"
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { ArrowLeft, Calendar, MapPin, ExternalLink, Shield, Cpu, Database, Server, Smartphone, Image as ImageIcon, CheckCircle, Network, ArrowRight } from "lucide-react"
+import { ArrowLeft, Calendar, MapPin, ExternalLink, Shield, Cpu, Database, Server, Smartphone, Image as ImageIcon, CheckCircle } from "lucide-react"
 
 interface PageProps {
   params: Promise<{ slug: string }>
@@ -35,6 +38,17 @@ export async function generateMetadata({ params }: PageProps) {
   }
 }
 
+// Check if image exists on file system under public/
+function checkImageExists(src?: string) {
+  if (!src) return false
+  try {
+    const fullPath = path.join(process.cwd(), "public", src)
+    return fs.existsSync(fullPath)
+  } catch {
+    return false
+  }
+}
+
 export default async function ExperienceCaseStudyPage({ params }: PageProps) {
   const { slug } = await params
   const experience = experiencesData.find((exp) => exp.slug === slug)
@@ -42,8 +56,8 @@ export default async function ExperienceCaseStudyPage({ params }: PageProps) {
     notFound()
   }
 
-  const isIdeactra = experience.id === "ideactra-social"
   const { caseStudy } = experience
+  const hasDashboardImage = checkImageExists(caseStudy.dashboardImage)
 
   return (
     <Container className="py-12 md:py-24 max-w-4xl selection:bg-accent selection:text-accent-foreground">
@@ -118,19 +132,32 @@ export default async function ExperienceCaseStudyPage({ params }: PageProps) {
           </Stack>
         </div>
 
-        {/* Project Highlight Mockup Card */}
-        <Card className="w-full bg-card border border-border/80 border-dashed flex items-center justify-center p-8 md:p-12 text-center select-none min-h-[260px]">
-          <Stack gap={2} className="items-center">
-            <ImageIcon className="h-10 w-10 text-muted-foreground/45" />
-            <span className="font-bold text-primary-text text-base">Dashboard Home Mockup</span>
-            <p className="text-xs text-muted-foreground max-w-sm leading-relaxed">
-              Main dashboard visualization exhibiting post feeds, trending list components, and search modules.
-            </p>
-            <span className="text-[10px] uppercase font-mono font-bold tracking-widest text-muted-foreground/60 px-3 py-1 bg-muted/20 rounded border border-border/40 mt-2">
-              Upload Screenshot Here
-            </span>
-          </Stack>
-        </Card>
+        {/* Project Highlight Mockup Card (Dynamic Image/Placeholder) */}
+        {hasDashboardImage ? (
+          <div className="relative w-full rounded-lg overflow-hidden border border-border aspect-[16/10] bg-muted/10">
+            <Image
+              src={caseStudy.dashboardImage!}
+              alt="Dashboard Highlight Mockup"
+              fill
+              className="object-cover"
+              sizes="(max-width: 896px) 100vw, 896px"
+              priority
+            />
+          </div>
+        ) : (
+          <Card className="w-full bg-card border border-border/80 border-dashed flex items-center justify-center p-8 md:p-12 text-center select-none min-h-[260px]">
+            <Stack gap={2} className="items-center">
+              <ImageIcon className="h-10 w-10 text-muted-foreground/45" />
+              <span className="font-bold text-primary-text text-base">Dashboard Home Mockup</span>
+              <p className="text-xs text-muted-foreground max-w-sm leading-relaxed">
+                Main dashboard visualization exhibiting post feeds, trending list components, and search modules.
+              </p>
+              <span className="text-[10px] uppercase font-mono font-bold tracking-widest text-muted-foreground/60 px-3 py-1 bg-muted/25 rounded border border-border/30 mt-2">
+                Upload Screenshot Here
+              </span>
+            </Stack>
+          </Card>
+        )}
 
         {/* Project Overview */}
         <section className="space-y-6">
@@ -412,33 +439,57 @@ export default async function ExperienceCaseStudyPage({ params }: PageProps) {
           </div>
         </section>
 
-        {/* Gallery */}
+        {/* Project Gallery (Dynamic Image/Placeholder) */}
         <section className="space-y-6">
           <Heading as="h2" className="text-2xl font-bold border-b pb-2">
             Project Gallery
           </Heading>
           
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-            {caseStudy.gallery.map((img, index) => (
-              <Card 
-                key={index} 
-                className="bg-card border border-border/80 border-dashed p-6 min-h-[220px] flex flex-col justify-between items-center text-center transition-all duration-300 hover:border-border"
-              >
-                <Stack gap={1} className="items-center">
-                  <ImageIcon className="h-8 w-8 text-muted-foreground/50 mb-2" />
-                  <span className="text-sm font-bold text-primary-text uppercase tracking-wider block">
-                    {img.title}
+            {caseStudy.gallery.map((img, index) => {
+              const hasGalleryImage = checkImageExists(img.image)
+              return hasGalleryImage ? (
+                <div key={index} className="flex flex-col gap-3 group/gallery">
+                  <div className="relative w-full rounded-lg overflow-hidden border border-border aspect-[16/10] bg-muted/10">
+                    <Image
+                      src={img.image!}
+                      alt={img.title}
+                      fill
+                      className="object-cover transition-transform duration-500 group-hover/gallery:scale-105"
+                      sizes="(max-width: 440px) 100vw, 440px"
+                      loading="lazy"
+                    />
+                  </div>
+                  <div className="px-1">
+                    <span className="text-sm font-bold text-primary-text uppercase tracking-wider block">
+                      {img.title}
+                    </span>
+                    <span className="text-xs text-muted-foreground mt-1 block leading-relaxed">
+                      {img.description}
+                    </span>
+                  </div>
+                </div>
+              ) : (
+                <Card 
+                  key={index} 
+                  className="bg-card border border-border/80 border-dashed p-6 min-h-[220px] flex flex-col justify-between items-center text-center transition-all duration-300 hover:border-border"
+                >
+                  <Stack gap={1} className="items-center">
+                    <ImageIcon className="h-8 w-8 text-muted-foreground/50 mb-2" />
+                    <span className="text-sm font-bold text-primary-text uppercase tracking-wider block">
+                      {img.title}
+                    </span>
+                    <span className="text-xs text-muted-foreground max-w-xs block leading-relaxed mt-1">
+                      {img.description}
+                    </span>
+                  </Stack>
+                  
+                  <span className="text-[10px] uppercase font-mono font-bold tracking-widest text-muted-foreground/60 px-3 py-1 bg-muted/25 rounded border border-border/30 mt-4 select-none">
+                    Replace with Screenshot
                   </span>
-                  <span className="text-xs text-muted-foreground max-w-xs block leading-relaxed mt-1">
-                    {img.description}
-                  </span>
-                </Stack>
-                
-                <span className="text-[10px] uppercase font-mono font-bold tracking-widest text-muted-foreground/60 px-3 py-1 bg-muted/25 rounded border border-border/30 mt-4 select-none">
-                  Replace with Screenshot
-                </span>
-              </Card>
-            ))}
+                </Card>
+              )
+            })}
           </div>
         </section>
 

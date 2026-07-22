@@ -1,3 +1,9 @@
+export interface GalleryItem {
+  title: string
+  description: string
+  image?: string
+}
+
 export interface CaseStudy {
   overview: string
   problemSolves: string
@@ -22,10 +28,8 @@ export interface CaseStudy {
     title: string
     description: string
   }[]
-  gallery: {
-    title: string
-    description: string
-  }[]
+  gallery: GalleryItem[]
+  dashboardImage?: string
 }
 
 export interface ExperienceData {
@@ -71,6 +75,7 @@ export const experiencesData: ExperienceData[] = [
     githubUrl: "https://github.com/archi2305/Portfolio",
     liveUrl: undefined,
     caseStudy: {
+      dashboardImage: "/images/ideactra-dashboard.png",
       overview: "Ideactra Social is a professional networking platform inspired by LinkedIn. During my internship, I worked on building the product from the ground up, including authentication, user profiles, networking features, posts, messaging, notifications, and deployment. The goal was to create a scalable social platform where professionals can connect, communicate, and share content.",
       problemSolves: "Building a modern professional networking platform requires much more than displaying posts. It involves secure authentication, profile management, real-time messaging, notifications, media uploads, social interactions, scalable APIs, and a well-designed database. The challenge was to integrate all these modules into a single production-ready application while keeping the system modular and maintainable.",
       responsibilities: [
@@ -193,35 +198,43 @@ export const experiencesData: ExperienceData[] = [
       gallery: [
         {
           title: "Dashboard Home",
-          description: "Replace with dashboard screenshot showing the feed, side menu, and trending topics."
+          description: "Replace with dashboard screenshot showing the feed, side menu, and trending topics.",
+          image: "/images/ideactra-dashboard.png"
         },
         {
           title: "User Profile",
-          description: "Replace with profile page displaying user education, experience, skills, and certifications."
+          description: "Replace with profile page displaying user education, experience, skills, and certifications.",
+          image: "/images/ideactra-profile.png"
         },
         {
           title: "Messaging System",
-          description: "Replace with messaging UI illustrating dynamic chat logs and active chats."
+          description: "Replace with messaging UI illustrating dynamic chat logs and active chats.",
+          image: "/images/ideactra-messaging.png"
         },
         {
           title: "Notifications",
-          description: "Replace with notifications page showing user connection requests and likes."
+          description: "Replace with notifications page showing user connection requests and likes.",
+          image: "/images/ideactra-notifications.png"
         },
         {
           title: "Authentication",
-          description: "Replace with login screen showcasing password sign-ins and Google/GitHub OAuth options."
+          description: "Replace with login screen showcasing password sign-ins and Google/GitHub OAuth options.",
+          image: "/images/ideactra-auth.png"
         },
         {
           title: "Database Schema",
-          description: "Replace with ER Diagram detailing tables and relational link mapping."
+          description: "Replace with ER Diagram detailing tables and relational link mapping.",
+          image: "/images/ideactra-db.png"
         },
         {
           title: "API Documentation",
-          description: "Replace with FastAPI Swagger document showing exposed endpoint structures."
+          description: "Replace with FastAPI Swagger document showing exposed endpoint structures.",
+          image: "/images/ideactra-api.png"
         },
         {
           title: "Application Deployment",
-          description: "Replace with Render Dashboard showing web service builds and log outputs."
+          description: "Replace with Render Dashboard showing web service builds and log outputs.",
+          image: "/images/ideactra-deployment.png"
         }
       ]
     }
@@ -239,6 +252,7 @@ export const experiencesData: ExperienceData[] = [
     githubUrl: "https://github.com/archi2305/Portfolio",
     liveUrl: undefined,
     caseStudy: {
+      dashboardImage: "/images/hashedbit-catalog.png",
       overview: "DressHub is a stylish fashion e-commerce application designed to serve hundreds of concurrent shoppers looking for clothing catalog feeds, cart setups, and order dispatch lines.",
       problemSolves: "Under high checkout volumes, platforms experience product overselling and inventory synchronization issues. DressHub needed a reliable relational transactional workflow ensuring strict stock checking at database checkout phases.",
       responsibilities: [
@@ -315,9 +329,9 @@ export const experiencesData: ExperienceData[] = [
         }
       ],
       gallery: [
-        { title: "Product Catalog View", description: "Replace with e-commerce catalog page showing grid layout and filters." },
-        { title: "Checkout Pipeline Flow", description: "Replace with checkout confirmation interface and checkout form." },
-        { title: "Inventory Dashboard", description: "Replace with admin table layout showing stock inventory status." }
+        { title: "Product Catalog View", description: "Replace with e-commerce catalog page showing grid layout and filters.", image: "/images/hashedbit-catalog.png" },
+        { title: "Checkout Pipeline Flow", description: "Replace with checkout confirmation interface and checkout form.", image: "/images/hashedbit-checkout.png" },
+        { title: "Inventory Dashboard", description: "Replace with admin table layout showing stock inventory status.", image: "/images/hashedbit-inventory.png" }
       ]
     }
   }
