@@ -212,11 +212,6 @@ export const experiencesData: ExperienceData[] = [
           image: "/images/ideactra-messaging.png"
         },
         {
-          title: "Notifications",
-          description: "Replace with notifications page showing user connection requests and likes.",
-          image: "/images/ideactra-notifications.png"
-        },
-        {
           title: "Authentication",
           description: "Replace with login screen showcasing password sign-ins and Google/GitHub OAuth options.",
           image: "/images/ideactra-auth.png"
@@ -225,16 +220,6 @@ export const experiencesData: ExperienceData[] = [
           title: "Database Schema",
           description: "Replace with ER Diagram detailing tables and relational link mapping.",
           image: "/images/ideactra-db.png"
-        },
-        {
-          title: "API Documentation",
-          description: "Replace with FastAPI Swagger document showing exposed endpoint structures.",
-          image: "/images/ideactra-api.png"
-        },
-        {
-          title: "Application Deployment",
-          description: "Replace with Render Dashboard showing web service builds and log outputs.",
-          image: "/images/ideactra-deployment.png"
         }
       ]
     }
