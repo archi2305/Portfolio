@@ -1,117 +1,83 @@
 import * as React from "react"
-import { Experience } from "@/types/experience"
+import Link from "next/link"
+import { ExperienceData } from "@/data/experienceData"
 import { Badge } from "@/components/ui/badge"
-import { H3, Body, Caption } from "@/components/ui/typography"
+import { H3, Body } from "@/components/ui/typography"
 import { Stack } from "@/components/layout/stack"
-import { Calendar, MapPin, Award } from "lucide-react"
-import { m } from "framer-motion"
+import { ArrowUpRight } from "lucide-react"
 import { cn } from "@/lib/utils"
 
 export interface TimelineProps extends React.HTMLAttributes<HTMLDivElement> {
-  items: Experience[]
+  items: ExperienceData[]
 }
 
 export function Timeline({ items, className, ...props }: TimelineProps) {
   return (
-    <div className={cn("relative pl-8 sm:pl-10", className)} {...props}>
-      {/* Vertical Line Track */}
-      <div className="absolute left-[11px] top-2 h-[calc(100%-16px)] w-[2px] bg-border/60" />
-
-      <Stack gap={10} className="w-full">
-        {items.map((item) => (
-          <TimelineItem key={item.id} item={item} />
-        ))}
-      </Stack>
+    <div className={cn("flex flex-col gap-6", className)} {...props}>
+      {items.map((item) => (
+        <TimelineItem key={item.id} item={item} />
+      ))}
     </div>
   )
 }
 
 interface TimelineItemProps {
-  item: Experience
+  item: ExperienceData
 }
 
 function TimelineItem({ item }: TimelineItemProps) {
   return (
-    <div className="group relative w-full transition-transform duration-300 hover:translate-x-1">
-      
-      {/* Subtle Animated Node Dot Indicator */}
-      <m.div 
-        className="absolute -left-[35px] sm:-left-[39px] top-1.5 h-3 w-3 rounded-full border-2 border-background bg-border group-hover:bg-primary-text group-hover:border-primary-text transition-colors duration-300 z-10"
-        whileHover={{ scale: 1.3 }}
-        transition={{ type: "spring", stiffness: 400, damping: 15 }}
-      />
-
-      <Stack gap={4} className="w-full">
-        
-        {/* Role, Company and Meta Details */}
-        <Stack gap={1} className="w-full">
-          <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1">
-            <H3 className="text-lg font-bold text-primary-text group-hover:text-primary-text/95 transition-colors">
-              {item.role}
-            </H3>
-            <div className="flex items-center gap-1 text-muted-foreground text-xs font-mono font-medium shrink-0">
-              <Calendar className="h-3.5 w-3.5" />
-              <span>{item.duration}</span>
-            </div>
-          </div>
-          
-          <div className="flex flex-wrap items-center gap-3 text-xs md:text-sm text-secondary-text">
-            <span className="font-bold text-primary-text tracking-wide text-sm md:text-base">{item.company}</span>
-            <span className="text-border/80 hidden sm:inline">•</span>
-            <div className="flex items-center gap-1 text-secondary-text/80 text-xs">
-              <MapPin className="h-3.5 w-3.5 shrink-0" />
-              <span>{item.location}</span>
-            </div>
-          </div>
-        </Stack>
-
-        {/* Job Description */}
-        <Body className="text-sm md:text-base leading-relaxed text-secondary-text max-w-2xl">
-          {item.description}
-        </Body>
-
-        {/* Achievements Bullet List with increased spacing */}
-        {item.achievements.length > 0 && (
-          <div className="space-y-2.5 max-w-2xl">
-            <Caption className="text-xs font-bold uppercase tracking-wider text-muted-foreground flex items-center gap-1.5">
-              <Award className="h-3.5 w-3.5" />
-              Key Contributions
-            </Caption>
-            <ul className="list-disc pl-5 space-y-2.5 text-xs sm:text-sm text-secondary-text/90">
-              {item.achievements.map((achievement, i) => {
-                const parts = achievement.split("**")
-                return (
-                  <li key={i}>
-                    {parts.map((part, index) =>
-                      index % 2 === 1 ? (
-                        <strong key={index} className="font-bold text-primary-text">
-                          {part}
-                        </strong>
-                      ) : (
-                        part
-                      )
-                    )}
-                  </li>
-                )
-              })}
-            </ul>
-          </div>
-        )}
-
-        {/* Improved Technologies Badge Pack */}
-        <div className="flex flex-wrap gap-1.5 pt-2">
-          {item.technologies.map((tech) => (
-            <Badge 
-              key={tech} 
-              variant="secondary" 
-              className="text-[11px] px-2.5 py-0.5 font-medium transition-all hover:bg-secondary/80 hover:text-primary-text hover:border-primary-text/20 border border-transparent font-mono"
-            >
-              {tech}
-            </Badge>
-          ))}
+    <Link
+      href={`/experience/${item.slug}`}
+      className="group block w-full p-6 rounded-lg border border-transparent bg-transparent hover:bg-card/30 hover:border-border/60 transition-all duration-300 hover:-translate-y-1 hover:shadow-sm cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+      aria-label={`View detailed case study for ${item.role} at ${item.company}`}
+    >
+      <div className="flex flex-col md:flex-row md:gap-8 gap-4 w-full">
+        {/* Left Column - Duration */}
+        <div className="md:w-1/4 w-full shrink-0">
+          <span className="text-xs font-mono font-bold tracking-widest text-muted-foreground uppercase">
+            {item.duration}
+          </span>
         </div>
 
-      </Stack>
-    </div>
+        {/* Right Column - Content */}
+        <div className="flex-1">
+          <Stack gap={3}>
+            {/* Header: Role & Company */}
+            <div className="flex items-start justify-between gap-2">
+              <H3 className="text-base sm:text-lg font-bold text-primary-text group-hover:text-accent-foreground transition-colors flex items-center gap-1">
+                <span>{item.role}</span>
+                <span className="text-muted-foreground/60 font-normal">@</span>
+                <span>{item.company}</span>
+                <ArrowUpRight className="h-4 w-4 text-muted-foreground/60 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1 group-hover:text-primary-text duration-300" />
+              </H3>
+            </div>
+
+            {/* Location (optional metadata block) */}
+            <span className="text-xs font-mono text-muted-foreground font-medium uppercase tracking-wider -mt-1 block">
+              {item.location}
+            </span>
+
+            {/* Concise Description */}
+            <Body className="text-sm leading-relaxed text-secondary-text max-w-2xl">
+              {item.summary}
+            </Body>
+
+            {/* Wrap-friendly Tech Badges */}
+            <div className="flex flex-wrap gap-1.5 pt-2">
+              {item.technologies.map((tech) => (
+                <Badge
+                  key={tech}
+                  variant="secondary"
+                  className="text-[10px] px-2.5 py-0.5 font-medium transition-all group-hover:bg-secondary group-hover:text-primary-text group-hover:border-primary-text/25 border border-transparent font-mono"
+                >
+                  {tech}
+                </Badge>
+              ))}
+            </div>
+          </Stack>
+        </div>
+      </div>
+    </Link>
   )
 }

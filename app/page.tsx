@@ -11,7 +11,7 @@ import { useActiveSection } from "@/hooks/use-active-section"
 import { ProjectCard } from "@/components/ui/project-card"
 import { Timeline } from "@/components/ui/timeline"
 import { projects } from "@/data/projects"
-import { experiences } from "@/data/experience"
+import { experiencesData } from "@/data/experienceData"
 import { profileConfig } from "@/data/config"
 import { Project } from "@/types/project"
 import { MobileHeader } from "@/components/layout/mobile-header"
@@ -82,7 +82,7 @@ export default function Home() {
                 <Heading as="h2" size="h2" className="border-b pb-2 border-border">
                   Experience
                 </Heading>
-                <Timeline items={experiences} />
+                <Timeline items={experiencesData} />
               </Stack>
             </RevealOnScroll>
           </Section>
