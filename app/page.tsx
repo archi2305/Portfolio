@@ -13,22 +13,14 @@ import { Timeline } from "@/components/ui/timeline"
 import { projects } from "@/data/projects"
 import { experiencesData } from "@/data/experienceData"
 import { profileConfig } from "@/data/config"
-import { Project } from "@/types/project"
 import { MobileHeader } from "@/components/layout/mobile-header"
 import { Sidebar } from "@/components/layout/sidebar"
 import { About } from "@/components/sections/about"
 import { Skills } from "@/components/sections/skills"
 import { Contact } from "@/components/sections/contact"
-import dynamic from "next/dynamic"
-
-const ProjectModal = dynamic(() => import("@/components/ui/project-modal").then((mod) => mod.ProjectModal), {
-  ssr: false,
-})
 
 export default function Home() {
   const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false)
-  const [selectedProject, setSelectedProject] = React.useState<Project | null>(null)
-  const [isModalOpen, setIsModalOpen] = React.useState(false)
 
   const sectionIds = ["about", "experience", "projects", "skills", "contact"]
   const activeSection = useActiveSection(sectionIds, 200)
@@ -99,10 +91,6 @@ export default function Home() {
                     <ProjectCard
                       key={project.id}
                       project={project}
-                      onSelect={() => {
-                        setSelectedProject(project)
-                        setIsModalOpen(true)
-                      }}
                     />
                   ))}
                 </Grid>
@@ -115,12 +103,6 @@ export default function Home() {
 
           {/* Contact Section */}
           <Contact />
-
-          <ProjectModal
-            project={selectedProject}
-            isOpen={isModalOpen}
-            onClose={() => setIsModalOpen(false)}
-          />
         </main>
       </Container>
     </div>
