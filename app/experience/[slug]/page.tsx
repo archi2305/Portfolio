@@ -7,7 +7,7 @@ import { Heading } from "@/components/ui/heading"
 import { Stack } from "@/components/layout/stack"
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { ArrowLeft, Calendar, MapPin, ExternalLink, GitBranch, Shield, Cpu, Database, Server, Smartphone } from "lucide-react"
+import { ArrowLeft, Calendar, MapPin, ExternalLink, Shield, Cpu, Database, Server, Smartphone, Image as ImageIcon, CheckCircle, Network, ArrowRight } from "lucide-react"
 
 interface PageProps {
   params: Promise<{ slug: string }>
@@ -42,46 +42,11 @@ export default async function ExperienceCaseStudyPage({ params }: PageProps) {
     notFound()
   }
 
-  // Helper icons for systems
-  const getSubsystemIcon = (key: string) => {
-    switch (key.toLowerCase()) {
-      case "frontend":
-        return <Smartphone className="h-5 w-5 text-muted-foreground" />
-      case "backend":
-        return <Server className="h-5 w-5 text-muted-foreground" />
-      case "database":
-        return <Database className="h-5 w-5 text-muted-foreground" />
-      case "authentication":
-        return <Shield className="h-5 w-5 text-muted-foreground" />
-      case "llm components":
-      case "llm":
-        return <Cpu className="h-5 w-5 text-muted-foreground" />
-      default:
-        return <GitBranch className="h-5 w-5 text-muted-foreground" />
-    }
-  }
-
-  // Parse architecture string to key-value pairs
   const isIdeactra = experience.id === "ideactra-social"
-  const architectureItems = isIdeactra
-    ? [
-        { label: "Frontend", value: "React, WebSockets (Presence & Chat UI)" },
-        { label: "Backend", value: "FastAPI (Python), Async Session Pooling" },
-        { label: "Database", value: "PostgreSQL, Normalized User & Message schemas" },
-        { label: "Authentication", value: "Google OAuth 2.0, GitHub OAuth, JWT Sessions" },
-        { label: "LLM Components", value: "Gemini API, RAG Vector Search Embeddings" },
-        { label: "Deployment", value: "Docker containers, Linux virtual machines" }
-      ]
-    : [
-        { label: "Frontend", value: "MERN (React/Next UI structure)" },
-        { label: "Backend", value: "Django REST Framework (Python), Catalog Serializers" },
-        { label: "Database", value: "MySQL, Indexed tables for category filtering" },
-        { label: "Authentication", value: "Django Sessions and session validations" },
-        { label: "Deployment", value: "Production server environments with MySQL synchronization pipelines" }
-      ]
+  const { caseStudy } = experience
 
   return (
-    <Container className="py-12 md:py-24 max-w-4xl">
+    <Container className="py-12 md:py-24 max-w-4xl selection:bg-accent selection:text-accent-foreground">
       <Stack gap={10} className="w-full">
         {/* Navigation / Back Button */}
         <div>
@@ -100,7 +65,7 @@ export default async function ExperienceCaseStudyPage({ params }: PageProps) {
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
               <div>
                 <span className="text-xs font-mono font-bold tracking-widest text-muted-foreground uppercase">
-                  Case Study
+                  Internship Project Case Study
                 </span>
                 <Heading as="h1" className="text-3xl sm:text-4xl font-extrabold mt-1">
                   {experience.role}
@@ -153,13 +118,16 @@ export default async function ExperienceCaseStudyPage({ params }: PageProps) {
           </Stack>
         </div>
 
-        {/* Project Screenshot Placeholder */}
-        <Card className="w-full bg-muted/20 border-dashed border-border/80 flex items-center justify-center p-8 md:p-16 text-center select-none min-h-[220px]">
+        {/* Project Highlight Mockup Card */}
+        <Card className="w-full bg-card border border-border/80 border-dashed flex items-center justify-center p-8 md:p-12 text-center select-none min-h-[260px]">
           <Stack gap={2} className="items-center">
-            <Smartphone className="h-10 w-10 text-muted-foreground/50" />
-            <span className="font-bold text-primary-text text-base">Project Highlight Mockup</span>
-            <span className="text-xs text-muted-foreground max-w-sm">
-              Live screenshot visualization showcasing {experience.company} dashboards, UI structures, and data flows.
+            <ImageIcon className="h-10 w-10 text-muted-foreground/45" />
+            <span className="font-bold text-primary-text text-base">Dashboard Home Mockup</span>
+            <p className="text-xs text-muted-foreground max-w-sm leading-relaxed">
+              Main dashboard visualization exhibiting post feeds, trending list components, and search modules.
+            </p>
+            <span className="text-[10px] uppercase font-mono font-bold tracking-widest text-muted-foreground/60 px-3 py-1 bg-muted/20 rounded border border-border/40 mt-2">
+              Upload Screenshot Here
             </span>
           </Stack>
         </Card>
@@ -177,7 +145,7 @@ export default async function ExperienceCaseStudyPage({ params }: PageProps) {
                 </CardTitle>
               </CardHeader>
               <CardContent className="px-6 pb-5 text-sm text-secondary-text leading-relaxed">
-                {experience.caseStudy.overview}
+                {caseStudy.overview}
               </CardContent>
             </Card>
 
@@ -188,7 +156,7 @@ export default async function ExperienceCaseStudyPage({ params }: PageProps) {
                 </CardTitle>
               </CardHeader>
               <CardContent className="px-6 pb-5 text-sm text-secondary-text leading-relaxed">
-                {experience.caseStudy.problemSolves}
+                {caseStudy.problemSolves}
               </CardContent>
             </Card>
 
@@ -199,7 +167,14 @@ export default async function ExperienceCaseStudyPage({ params }: PageProps) {
                 </CardTitle>
               </CardHeader>
               <CardContent className="px-6 pb-5 text-sm text-secondary-text leading-relaxed">
-                {experience.caseStudy.responsibilities}
+                <ul className="space-y-2 list-none pl-0">
+                  {caseStudy.responsibilities.map((resp, i) => (
+                    <li key={i} className="flex gap-2 items-start text-xs sm:text-sm">
+                      <span className="text-primary-text font-bold select-none">•</span>
+                      <span>{resp}</span>
+                    </li>
+                  ))}
+                </ul>
               </CardContent>
             </Card>
           </div>
@@ -208,50 +183,189 @@ export default async function ExperienceCaseStudyPage({ params }: PageProps) {
         {/* Architecture */}
         <section className="space-y-6">
           <Heading as="h2" className="text-2xl font-bold border-b pb-2">
-            Architecture
+            System Architecture
           </Heading>
-          <div className="space-y-6">
-            <Card className="bg-card border border-border">
-              <CardHeader className="pt-5 pb-3 px-6">
-                <CardTitle className="text-sm font-bold text-primary-text uppercase tracking-wider">
-                  System Architecture Details
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="px-6 pb-6">
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  {architectureItems.map((arch) => (
-                    <div key={arch.label} className="flex gap-3 items-start p-3 rounded-md bg-muted/15 border border-border/40">
-                      {getSubsystemIcon(arch.label)}
-                      <div>
-                        <span className="block text-xs font-bold text-primary-text uppercase tracking-wider">
-                          {arch.label}
-                        </span>
-                        <span className="text-sm text-secondary-text">
-                          {arch.value}
-                        </span>
-                      </div>
-                    </div>
-                  ))}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {/* Left Block: Frontend & Backend */}
+            <div className="space-y-6">
+              <Card className="bg-card border border-border">
+                <CardHeader className="pt-5 pb-2 px-6">
+                  <CardTitle className="text-sm font-bold text-primary-text uppercase tracking-wider flex items-center gap-2">
+                    <Smartphone className="h-4 w-4 text-muted-foreground" />
+                    Frontend
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="px-6 pb-5">
+                  <ul className="space-y-1.5 list-none pl-0">
+                    {caseStudy.architecture.frontend.map((item, i) => (
+                      <li key={i} className="text-sm text-secondary-text flex items-center gap-2">
+                        <CheckCircle className="h-3 w-3 text-muted-foreground" />
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </CardContent>
+              </Card>
+
+              <Card className="bg-card border border-border">
+                <CardHeader className="pt-5 pb-2 px-6">
+                  <CardTitle className="text-sm font-bold text-primary-text uppercase tracking-wider flex items-center gap-2">
+                    <Server className="h-4 w-4 text-muted-foreground" />
+                    Backend
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="px-6 pb-5">
+                  <ul className="space-y-1.5 list-none pl-0">
+                    {caseStudy.architecture.backend.map((item, i) => (
+                      <li key={i} className="text-sm text-secondary-text flex items-center gap-2">
+                        <CheckCircle className="h-3 w-3 text-muted-foreground" />
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </CardContent>
+              </Card>
+            </div>
+
+            {/* Right Block: Database, Authentication & Deployment */}
+            <div className="space-y-6">
+              <Card className="bg-card border border-border">
+                <CardHeader className="pt-5 pb-2 px-6">
+                  <CardTitle className="text-sm font-bold text-primary-text uppercase tracking-wider flex items-center gap-2">
+                    <Database className="h-4 w-4 text-muted-foreground" />
+                    Database
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="px-6 pb-5 space-y-3">
+                  <div>
+                    <span className="text-xs font-bold text-primary-text font-mono uppercase">
+                      {caseStudy.architecture.database.engine} ({caseStudy.architecture.database.details})
+                    </span>
+                  </div>
+                  <div className="flex flex-wrap gap-1">
+                    {caseStudy.architecture.database.tables.map((table) => (
+                      <Badge key={table} variant="outline" className="text-[10px] font-mono px-1.5 py-0.5">
+                        {table}
+                      </Badge>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card className="bg-card border border-border">
+                <CardHeader className="pt-5 pb-2 px-6">
+                  <CardTitle className="text-sm font-bold text-primary-text uppercase tracking-wider flex items-center gap-2">
+                    <Shield className="h-4 w-4 text-muted-foreground" />
+                    Authentication
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="px-6 pb-5">
+                  <ul className="space-y-1.5 list-none pl-0">
+                    {caseStudy.architecture.authentication.map((item, i) => (
+                      <li key={i} className="text-sm text-secondary-text flex items-center gap-2">
+                        <CheckCircle className="h-3 w-3 text-muted-foreground" />
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </CardContent>
+              </Card>
+
+              <Card className="bg-card border border-border">
+                <CardHeader className="pt-5 pb-2 px-6">
+                  <CardTitle className="text-sm font-bold text-primary-text uppercase tracking-wider flex items-center gap-2">
+                    <Cpu className="h-4 w-4 text-muted-foreground" />
+                    Deployment
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="px-6 pb-5">
+                  <ul className="space-y-1.5 list-none pl-0">
+                    {caseStudy.architecture.deployment.map((item, i) => (
+                      <li key={i} className="text-sm text-secondary-text flex items-center gap-2">
+                        <CheckCircle className="h-3 w-3 text-muted-foreground" />
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </CardContent>
+              </Card>
+            </div>
+          </div>
+        </section>
+
+        {/* System Design Diagram */}
+        <section className="space-y-6">
+          <Heading as="h2" className="text-2xl font-bold border-b pb-2">
+            System Design Diagram
+          </Heading>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {/* Diagram 1: Main Flow */}
+            <Card className="bg-card border border-border p-6 flex flex-col justify-between">
+              <div className="mb-4">
+                <span className="text-xs font-bold text-muted-foreground uppercase tracking-widest block mb-1">
+                  Primary Architecture Flow
+                </span>
+                <span className="text-[11px] text-muted-foreground/75">
+                  Request pathway from Client browser to Relational Database
+                </span>
+              </div>
+              <div className="w-full flex flex-col items-center gap-3 py-4 px-2 bg-muted/10 border border-border/80 border-dashed rounded-lg text-xs font-mono">
+                <div className="px-3 py-1.5 bg-background border border-border rounded font-bold text-primary-text w-full max-w-[240px] text-center">
+                  React Frontend (Render)
                 </div>
-              </CardContent>
+                <div className="flex flex-col items-center text-[10px] text-muted-foreground leading-none">
+                  <span>REST APIs + WebSockets</span>
+                  <span>▼</span>
+                </div>
+                <div className="px-3 py-2 bg-background border border-border rounded font-bold text-primary-text w-full max-w-[240px] text-center">
+                  FastAPI Backend (Render)
+                  <div className="text-[9px] text-secondary-text font-normal text-left mt-1.5 border-t border-border/50 pt-1.5 space-y-0.5">
+                    <div>├─ Authentication</div>
+                    <div>├─ User APIs</div>
+                    <div>├─ Posts APIs</div>
+                    <div>├─ Messaging APIs</div>
+                    <div>├─ Notification APIs</div>
+                    <div>└─ Profile APIs</div>
+                  </div>
+                </div>
+                <div className="text-[10px] text-muted-foreground">▼</div>
+                <div className="px-3 py-1.5 bg-background border border-border rounded font-bold text-primary-text w-full max-w-[240px] text-center">
+                  PostgreSQL Database (Render)
+                </div>
+              </div>
             </Card>
 
-            {/* Architecture Diagram Placeholder */}
-            <Card className="bg-card border border-border p-6 flex flex-col items-center">
-              <span className="text-xs font-bold text-muted-foreground uppercase tracking-widest mb-4">
-                System Design Diagram
-              </span>
-              <div className="w-full max-w-lg flex flex-col sm:flex-row items-center justify-between gap-4 py-6 px-4 bg-muted/10 border border-border/80 border-dashed rounded-lg">
-                <div className="px-3 py-2 bg-card border border-border rounded text-xs font-mono font-bold text-center w-28 text-primary-text shadow-sm">
-                  Client UI
+            {/* Diagram 2: Secondary Flow (Authentication) */}
+            <Card className="bg-card border border-border p-6 flex flex-col justify-between">
+              <div className="mb-4">
+                <span className="text-xs font-bold text-muted-foreground uppercase tracking-widest block mb-1">
+                  Authentication Integration Flow
+                </span>
+                <span className="text-[11px] text-muted-foreground/75">
+                  SSO Federated Login and Session Issuing Cycle
+                </span>
+              </div>
+              <div className="w-full flex flex-col items-center gap-3 py-4 px-2 bg-muted/10 border border-border/80 border-dashed rounded-lg text-xs font-mono">
+                <div className="flex gap-2 w-full max-w-[240px] justify-between">
+                  <div className="flex-1 px-2 py-1 bg-background border border-border rounded font-bold text-primary-text text-center text-[10px]">
+                    Google OAuth
+                  </div>
+                  <div className="flex-1 px-2 py-1 bg-background border border-border rounded font-bold text-primary-text text-center text-[10px]">
+                    GitHub OAuth
+                  </div>
                 </div>
-                <div className="text-xs text-muted-foreground font-mono">────►</div>
-                <div className="px-3 py-2 bg-card border border-border rounded text-xs font-mono font-bold text-center w-28 text-primary-text shadow-sm">
-                  {isIdeactra ? "FastAPI Server" : "Django App"}
+                <div className="text-[10px] text-muted-foreground">▼</div>
+                <div className="px-3 py-1.5 bg-background border border-border rounded font-bold text-primary-text w-full max-w-[240px] text-center">
+                  Authentication Service
                 </div>
-                <div className="text-xs text-muted-foreground font-mono">────►</div>
-                <div className="px-3 py-2 bg-card border border-border rounded text-xs font-mono font-bold text-center w-28 text-primary-text shadow-sm">
-                  {isIdeactra ? "PostgreSQL" : "MySQL"}
+                <div className="text-[10px] text-muted-foreground">▼</div>
+                <div className="px-3 py-1.5 bg-background border border-border rounded font-bold text-primary-text w-full max-w-[240px] text-center">
+                  JWT Token Issued
+                </div>
+                <div className="text-[10px] text-muted-foreground">▼</div>
+                <div className="px-3 py-1.5 bg-background border border-border rounded font-bold text-primary-text w-full max-w-[240px] text-center">
+                  React Client Local Storage
                 </div>
               </div>
             </Card>
@@ -265,10 +379,10 @@ export default async function ExperienceCaseStudyPage({ params }: PageProps) {
           </Heading>
           <Card className="bg-card border border-border">
             <CardContent className="p-6">
-              <ul className="space-y-3.5">
-                {experience.caseStudy.keyContributions.map((contribution, index) => (
-                  <li key={index} className="flex gap-3 text-secondary-text leading-relaxed">
-                    <span className="text-primary-text font-bold select-none text-base">•</span>
+              <ul className="space-y-3.5 pl-0 list-none">
+                {caseStudy.keyContributions.map((contribution, index) => (
+                  <li key={index} className="flex gap-3 text-secondary-text leading-relaxed text-sm sm:text-base">
+                    <span className="text-primary-text font-bold select-none">•</span>
                     <span>{contribution}</span>
                   </li>
                 ))}
@@ -283,7 +397,7 @@ export default async function ExperienceCaseStudyPage({ params }: PageProps) {
             Technical Challenges
           </Heading>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {experience.caseStudy.technicalChallenges.map((challenge, index) => (
+            {caseStudy.technicalChallenges.map((challenge, index) => (
               <Card key={index} className="bg-card border border-border">
                 <CardHeader className="pt-5 pb-2 px-6">
                   <CardTitle className="text-base font-bold text-primary-text">
@@ -301,19 +415,27 @@ export default async function ExperienceCaseStudyPage({ params }: PageProps) {
         {/* Gallery */}
         <section className="space-y-6">
           <Heading as="h2" className="text-2xl font-bold border-b pb-2">
-            Gallery
+            Project Gallery
           </Heading>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-            {experience.caseStudy.gallery.map((img, index) => (
-              <Card key={index} className="bg-muted/15 border border-border/80 border-dashed p-6 min-h-[160px] flex flex-col justify-between items-center text-center">
-                <span className="text-xs font-bold text-primary-text uppercase tracking-wider">
-                  {img.title}
-                </span>
-                <span className="text-[11px] text-muted-foreground/75 italic">
-                  [{img.placeholderText}]
-                </span>
-                <span className="text-[10px] font-mono text-muted-foreground/50">
-                  Placeholder
+          
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            {caseStudy.gallery.map((img, index) => (
+              <Card 
+                key={index} 
+                className="bg-card border border-border/80 border-dashed p-6 min-h-[220px] flex flex-col justify-between items-center text-center transition-all duration-300 hover:border-border"
+              >
+                <Stack gap={1} className="items-center">
+                  <ImageIcon className="h-8 w-8 text-muted-foreground/50 mb-2" />
+                  <span className="text-sm font-bold text-primary-text uppercase tracking-wider block">
+                    {img.title}
+                  </span>
+                  <span className="text-xs text-muted-foreground max-w-xs block leading-relaxed mt-1">
+                    {img.description}
+                  </span>
+                </Stack>
+                
+                <span className="text-[10px] uppercase font-mono font-bold tracking-widest text-muted-foreground/60 px-3 py-1 bg-muted/25 rounded border border-border/30 mt-4 select-none">
+                  Replace with Screenshot
                 </span>
               </Card>
             ))}
@@ -326,7 +448,7 @@ export default async function ExperienceCaseStudyPage({ params }: PageProps) {
             Lessons Learned
           </Heading>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-            {experience.caseStudy.lessonsLearned.map((lesson, index) => (
+            {caseStudy.lessonsLearned.map((lesson, index) => (
               <Card key={index} className="bg-card border border-border">
                 <CardHeader className="pt-5 pb-2 px-6">
                   <CardTitle className="text-sm font-bold text-primary-text uppercase tracking-wide">

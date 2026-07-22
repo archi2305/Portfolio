@@ -1,8 +1,18 @@
 export interface CaseStudy {
   overview: string
   problemSolves: string
-  responsibilities: string
-  architectureDescription: string
+  responsibilities: string[]
+  architecture: {
+    frontend: string[]
+    backend: string[]
+    database: {
+      engine: string
+      details: string
+      tables: string[]
+    }
+    authentication: string[]
+    deployment: string[]
+  }
   keyContributions: string[]
   technicalChallenges: {
     title: string
@@ -14,7 +24,7 @@ export interface CaseStudy {
   }[]
   gallery: {
     title: string
-    placeholderText: string
+    description: string
   }[]
 }
 
@@ -42,70 +52,177 @@ export const experiencesData: ExperienceData[] = [
     company: "Ideactra Social",
     duration: "Apr 2026 – Jun 2026",
     location: "Remote",
-    summary: "Engineered core backend infrastructure for Ideactra Social, a live social platform — architecting REST APIs and relational database models spanning user profiles, content publishing, networking, and engagement workflows.",
+    summary: "Built a professional networking platform from the ground up, including secure OAuth authentication, real-time messaging, connections, notifications, and modular FastAPI backend APIs deployed on Render.",
     technologies: [
+      "React.js",
       "FastAPI",
+      "Python",
       "PostgreSQL",
-      "React",
+      "SQLAlchemy",
       "WebSockets",
-      "Gemini API",
-      "RAG",
-      "JavaScript",
-      "Google OAuth 2.0",
+      "JWT",
+      "Google OAuth",
       "GitHub OAuth",
-      "JWT"
+      "Render",
+      "Docker",
+      "Axios",
+      "Tailwind CSS"
     ],
     githubUrl: "https://github.com/archi2305/Portfolio",
     liveUrl: undefined,
     caseStudy: {
-      overview: "Ideactra Social is a production-ready social networking platform built to connect users in real-time. The project involved constructing the platform's core infrastructure, enabling dynamic content feeds, connection webs, and high-frequency real-time communications.",
-      problemSolves: "Modern social systems require robust identity validation, highly responsive real-time chat layers, and context-aware help desks. The goal was to replace traditional polling with WebSockets for chat and integrate secure OAuth protocols while retaining top backend efficiency.",
-      responsibilities: "Responsible for designing and implementing the WebSocket real-time chat backend, mapping out relational schema designs with secure database row-level logic, exposing scalable API endpoints, and configuring third-party SSO integrations.",
-      architectureDescription: "Uses a clean client-server architecture. The FastAPI server handles incoming REST API traffic and upgrades connections to WebSockets for live chat channels. Authentication state is validated via JWT tokens, with user metadata stored inside a PostgreSQL database cluster.",
+      overview: "Ideactra Social is a professional networking platform inspired by LinkedIn. During my internship, I worked on building the product from the ground up, including authentication, user profiles, networking features, posts, messaging, notifications, and deployment. The goal was to create a scalable social platform where professionals can connect, communicate, and share content.",
+      problemSolves: "Building a modern professional networking platform requires much more than displaying posts. It involves secure authentication, profile management, real-time messaging, notifications, media uploads, social interactions, scalable APIs, and a well-designed database. The challenge was to integrate all these modules into a single production-ready application while keeping the system modular and maintainable.",
+      responsibilities: [
+        "Built major frontend and backend modules from scratch.",
+        "Developed secure authentication using JWT, Google OAuth and GitHub OAuth.",
+        "Designed PostgreSQL database schema and relationships.",
+        "Built REST APIs using FastAPI.",
+        "Implemented messaging, notifications and social networking features.",
+        "Integrated profile management, media uploads and user connections.",
+        "Fixed deployment issues, authentication bugs and production errors.",
+        "Deployed both frontend and backend on Render.",
+        "Wrote technical documentation for the complete application."
+      ],
+      architecture: {
+        frontend: [
+          "React.js",
+          "Context API",
+          "Axios",
+          "Responsive UI",
+          "Component Based Architecture"
+        ],
+        backend: [
+          "FastAPI",
+          "Python",
+          "REST APIs",
+          "JWT Authentication",
+          "WebSocket Support",
+          "Async SQLAlchemy"
+        ],
+        database: {
+          engine: "PostgreSQL",
+          details: "Normalized relational schema",
+          tables: [
+            "Users",
+            "Posts",
+            "Comments",
+            "Likes",
+            "Messages",
+            "Conversations",
+            "Notifications",
+            "Connection Requests",
+            "Experience",
+            "Education",
+            "Projects",
+            "Skills",
+            "Certifications"
+          ]
+        },
+        authentication: [
+          "JWT Authentication",
+          "Google OAuth",
+          "GitHub OAuth",
+          "Protected Routes",
+          "Password Hashing"
+        ],
+        deployment: [
+          "Frontend deployed on Render",
+          "Backend deployed on Render",
+          "PostgreSQL hosted on Render",
+          "Environment Variables",
+          "Production Configuration"
+        ]
+      },
       keyContributions: [
-        "Designed and implemented a production-ready WebSocket chat system supporting user presence state.",
-        "Designed PostgreSQL schema for conversations, messages, participants, and user profiles.",
-        "Built Google OAuth 2.0 + GitHub OAuth + JWT authentication pipelines.",
-        "Built a RAG-powered chatbot using the Gemini API for contextual knowledge retrieval from user documents.",
-        "Designed and optimized 20+ REST APIs for user feeds, posts, and profile operations.",
-        "Implemented scalable backend modules in FastAPI with async database session pooling."
+        "Built a LinkedIn-inspired professional networking platform from scratch.",
+        "Designed and developed secure authentication with Email/Password, Google OAuth, GitHub OAuth and JWT.",
+        "Built user profile management including education, experience, projects, certifications and skills.",
+        "Developed complete social networking features including posts, likes, comments and connection requests.",
+        "Implemented real-time messaging architecture using WebSockets with conversation management.",
+        "Built notification system for messages, connection requests and platform activities.",
+        "Designed normalized PostgreSQL database with optimized relationships.",
+        "Developed REST APIs using FastAPI with proper validation and modular architecture.",
+        "Fixed deployment, authentication and production bugs during development.",
+        "Deployed frontend, backend and PostgreSQL database on Render."
       ],
       technicalChallenges: [
         {
-          title: "Designing concurrent messaging",
-          description: "Managing socket disconnects and high concurrency safely during conversation updates. Solved by writing an connection manager tracking alive socket IDs and queueing offline updates."
+          title: "Designing Concurrent Messaging",
+          description: "Handling high-frequency real-time message streams without causing race conditions or message loss. Solved by writing an connection manager tracking client WebSocket instances and mapping database transaction boundaries cleanly."
         },
         {
-          title: "Database normalization & query tuning",
-          description: "Storing high-frequency chat history without slowing down user profile lookups. Normalised message databases into conversation threads with indexes on active timestamp fields."
+          title: "Database Schema Normalization",
+          description: "Structuring 13+ related tables (Users, Posts, Conversations, Experiences, etc.) while keeping retrieval speeds fast. Added composite indexes on foreign keys and optimized joining paths."
         },
         {
-          title: "OAuth & JWT Token security flow",
-          description: "Safely mapping external social identity payloads (Google & GitHub) to internal user keys. Designed a middleware JWT validation step that signs and refreshes server sessions securely."
+          title: "Multi-Provider OAuth Syncing",
+          description: "Coordinating standard credentials alongside Google and GitHub logins without creating duplicate users. Designed a single unified account association system handling verified email states."
         },
         {
-          title: "RAG context retrieval windows",
-          description: "Limiting token usage on Gemini API calls during prompt generation. Implemented a vector lookup pipeline sending only highly-ranked context snippets rather than complete text blobs."
+          title: "Deployment and Config Tuning",
+          description: "Configuring async connection pools on Render instances without hitting database connection caps. Set up SQLAlchemy pooling configurations and optimized connection reuse."
         }
       ],
       lessonsLearned: [
         {
           title: "System Design",
-          description: "Dividing messaging routes from static content routes boosts pipeline throughput and isolates scaling bottlenecks."
+          description: "Learned how to design a modular full-stack application by separating authentication, user management, social networking and messaging into independent modules."
         },
         {
-          title: "Real-time Workflows",
-          description: "Designing clean WebSocket handshake sequences and heartbeat pings prevents zombie database connections."
+          title: "Backend Development",
+          description: "Improved understanding of FastAPI, API design, authentication, database relationships and production-ready backend architecture."
         },
         {
-          title: "Database Isolation",
-          description: "Proper indexing and execution path analysis using EXPLAIN ANALYZE are vital when scaling relational schemas under load."
+          title: "Database Design",
+          description: "Designed relational database schemas with proper foreign keys, normalization and optimized queries."
+        },
+        {
+          title: "Authentication",
+          description: "Implemented JWT authentication and integrated Google and GitHub OAuth securely."
+        },
+        {
+          title: "Deployment",
+          description: "Learned production deployment using Render, environment variables, PostgreSQL hosting and debugging deployment issues."
+        },
+        {
+          title: "Debugging",
+          description: "Resolved authentication errors, routing issues, WebSocket connection problems, profile upload bugs and deployment failures."
         }
       ],
       gallery: [
-        { title: "Chat UI Layout", placeholderText: "Interactive Chat View Showing Live User Status" },
-        { title: "Database Schema", placeholderText: "PostgreSQL ER Diagram for Conversations & Authentication" },
-        { title: "API Swagger Docs", placeholderText: "Interactive FastAPI Swagger Endpoint Documentation" }
+        {
+          title: "Dashboard Home",
+          description: "Replace with dashboard screenshot showing the feed, side menu, and trending topics."
+        },
+        {
+          title: "User Profile",
+          description: "Replace with profile page displaying user education, experience, skills, and certifications."
+        },
+        {
+          title: "Messaging System",
+          description: "Replace with messaging UI illustrating dynamic chat logs and active chats."
+        },
+        {
+          title: "Notifications",
+          description: "Replace with notifications page showing user connection requests and likes."
+        },
+        {
+          title: "Authentication",
+          description: "Replace with login screen showcasing password sign-ins and Google/GitHub OAuth options."
+        },
+        {
+          title: "Database Schema",
+          description: "Replace with ER Diagram detailing tables and relational link mapping."
+        },
+        {
+          title: "API Documentation",
+          description: "Replace with FastAPI Swagger document showing exposed endpoint structures."
+        },
+        {
+          title: "Application Deployment",
+          description: "Replace with Render Dashboard showing web service builds and log outputs."
+        }
       ]
     }
   },
@@ -124,8 +241,45 @@ export const experiencesData: ExperienceData[] = [
     caseStudy: {
       overview: "DressHub is a stylish fashion e-commerce application designed to serve hundreds of concurrent shoppers looking for clothing catalog feeds, cart setups, and order dispatch lines.",
       problemSolves: "Under high checkout volumes, platforms experience product overselling and inventory synchronization issues. DressHub needed a reliable relational transactional workflow ensuring strict stock checking at database checkout phases.",
-      responsibilities: "Owned the backend architecture layout for catalog lookup engines, inventory synchronization updates, checkout pathways, and user accounts. Tasked with reducing page loads and tuning product indexing structures.",
-      architectureDescription: "Features a structured web layout backed by Django REST framework. Product listings, categories, and shopping carts are managed via Python backend logic writing directly to a MySQL relational storage cluster.",
+      responsibilities: [
+        "Owned the backend architecture layout for catalog lookup engines, inventory synchronization updates, checkout pathways, and user accounts.",
+        "Tasked with reducing page loads and tuning product indexing structures."
+      ],
+      architecture: {
+        frontend: [
+          "MERN React UI components",
+          "State management",
+          "Responsive Catalog layout",
+          "Axios requests"
+        ],
+        backend: [
+          "Django REST Framework",
+          "Python",
+          "Inventory Serializers",
+          "E-commerce pipelines"
+        ],
+        database: {
+          engine: "MySQL",
+          details: "Indexed tables for product lookup speed",
+          tables: [
+            "Users",
+            "Products",
+            "Categories",
+            "Orders",
+            "OrderItems",
+            "Carts",
+            "InventoryLogs"
+          ]
+        },
+        authentication: [
+          "Django Session Authentications",
+          "Protected API routes"
+        ],
+        deployment: [
+          "Linux production instances",
+          "MySQL sync servers"
+        ]
+      },
       keyContributions: [
         "Owned complete backend development for the e-commerce core including cart configurations and checkout endpoints.",
         "Built a MySQL inventory synchronization pipeline preventing product overselling during heavy user traffic.",
@@ -161,9 +315,9 @@ export const experiencesData: ExperienceData[] = [
         }
       ],
       gallery: [
-        { title: "Product Catalog View", placeholderText: "E-Commerce Catalog Grid with Filters" },
-        { title: "Checkout Pipeline Flow", placeholderText: "Step-by-Step Order Processing Architecture Chart" },
-        { title: "Inventory Dashboard", placeholderText: "Real-time MySQL Stock Allocation Table View" }
+        { title: "Product Catalog View", description: "Replace with e-commerce catalog page showing grid layout and filters." },
+        { title: "Checkout Pipeline Flow", description: "Replace with checkout confirmation interface and checkout form." },
+        { title: "Inventory Dashboard", description: "Replace with admin table layout showing stock inventory status." }
       ]
     }
   }
