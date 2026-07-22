@@ -60,6 +60,7 @@ export default async function ExperienceCaseStudyPage({ params }: PageProps) {
   const { caseStudy } = experience
   const hasDashboardImage = checkImageExists(caseStudy.dashboardImage)
   const isIdeactra = experience.id === "ideactra-social"
+  const hasAnyGalleryImage = isIdeactra || caseStudy.gallery.some((img) => checkImageExists(img.image))
 
   return (
     <Container className="py-12 md:py-24 max-w-4xl selection:bg-accent selection:text-accent-foreground">
@@ -166,20 +167,7 @@ export default async function ExperienceCaseStudyPage({ params }: PageProps) {
               priority
             />
           </div>
-        ) : (
-          <Card className="w-full bg-card border border-border/80 border-dashed flex items-center justify-center p-8 md:p-12 text-center select-none min-h-[260px]">
-            <Stack gap={2} className="items-center">
-              <ImageIcon className="h-10 w-10 text-muted-foreground/45" />
-              <span className="font-bold text-primary-text text-base">Dashboard Highlight Mockup</span>
-              <p className="text-xs text-muted-foreground max-w-sm leading-relaxed">
-                Main catalog visualization exhibiting e-commerce items, filtering controls, and cart overview modules.
-              </p>
-              <span className="text-[10px] uppercase font-mono font-bold tracking-widest text-muted-foreground/60 px-3 py-1 bg-muted/25 rounded border border-border/30 mt-2">
-                Placeholder
-              </span>
-            </Stack>
-          </Card>
-        )}
+        ) : null}
 
         {/* Project Overview */}
         <section className="space-y-6">
@@ -495,67 +483,51 @@ export default async function ExperienceCaseStudyPage({ params }: PageProps) {
         </section>
 
         {/* Project Gallery (Upload grid for Ideactra, Static display for HashedBit) */}
-        <section className="space-y-6">
-          <Heading as="h2" className="text-2xl font-bold border-b pb-2">
-            Project Gallery
-          </Heading>
-          
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-            {caseStudy.gallery.map((img, index) => {
-              const hasGalleryImage = checkImageExists(img.image)
-              return isIdeactra ? (
-                <ScreenshotUpload
-                  key={index}
-                  slug={experience.slug}
-                  title={img.title}
-                  description={img.description}
-                  defaultImageSrc={img.image}
-                  hasDefaultImage={hasGalleryImage}
-                  className="aspect-[16/10]"
-                />
-              ) : hasGalleryImage ? (
-                <div key={index} className="flex flex-col gap-3 group/gallery">
-                  <div className="relative w-full rounded-lg overflow-hidden border border-border aspect-[16/10] bg-muted/10">
-                    <Image
-                      src={img.image!}
-                      alt={img.title}
-                      fill
-                      className="object-cover transition-transform duration-500 group-hover/gallery:scale-105"
-                      sizes="(max-width: 440px) 100vw, 440px"
-                      loading="lazy"
-                    />
+        {hasAnyGalleryImage && (
+          <section className="space-y-6">
+            <Heading as="h2" className="text-2xl font-bold border-b pb-2">
+              Project Gallery
+            </Heading>
+            
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              {caseStudy.gallery.map((img, index) => {
+                const hasGalleryImage = checkImageExists(img.image)
+                return isIdeactra ? (
+                  <ScreenshotUpload
+                    key={index}
+                    slug={experience.slug}
+                    title={img.title}
+                    description={img.description}
+                    defaultImageSrc={img.image}
+                    hasDefaultImage={hasGalleryImage}
+                    className="aspect-[16/10]"
+                  />
+                ) : hasGalleryImage ? (
+                  <div key={index} className="flex flex-col gap-3 group/gallery">
+                    <div className="relative w-full rounded-lg overflow-hidden border border-border aspect-[16/10] bg-muted/10">
+                      <Image
+                        src={img.image!}
+                        alt={img.title}
+                        fill
+                        className="object-cover transition-transform duration-500 group-hover/gallery:scale-105"
+                        sizes="(max-width: 440px) 100vw, 440px"
+                        loading="lazy"
+                      />
+                    </div>
+                    <div className="px-1">
+                      <span className="text-sm font-bold text-primary-text uppercase tracking-wider block">
+                        {img.title}
+                      </span>
+                      <span className="text-xs text-muted-foreground mt-1 block leading-relaxed">
+                        {img.description}
+                      </span>
+                    </div>
                   </div>
-                  <div className="px-1">
-                    <span className="text-sm font-bold text-primary-text uppercase tracking-wider block">
-                      {img.title}
-                    </span>
-                    <span className="text-xs text-muted-foreground mt-1 block leading-relaxed">
-                      {img.description}
-                    </span>
-                  </div>
-                </div>
-              ) : (
-                <Card 
-                  key={index} 
-                  className="bg-card border border-border/80 border-dashed p-6 min-h-[220px] flex flex-col justify-between items-center text-center"
-                >
-                  <Stack gap={1} className="items-center">
-                    <ImageIcon className="h-8 w-8 text-muted-foreground/50 mb-2" />
-                    <span className="text-sm font-bold text-primary-text uppercase tracking-wider block">
-                      {img.title}
-                    </span>
-                    <span className="text-xs text-muted-foreground max-w-xs block leading-relaxed mt-1">
-                      {img.description}
-                    </span>
-                  </Stack>
-                  <span className="text-[10px] uppercase font-mono font-bold tracking-widest text-muted-foreground/60 px-3 py-1 bg-muted/25 rounded border border-border/30 mt-4 select-none">
-                    Placeholder
-                  </span>
-                </Card>
-              )
-            })}
-          </div>
-        </section>
+                ) : null
+              })}
+            </div>
+          </section>
+        )}
 
         {/* Lessons Learned */}
         <section className="space-y-6">

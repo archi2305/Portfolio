@@ -22,25 +22,26 @@ export function ScreenshotUpload({
   hasDefaultImage,
   className
 }: ScreenshotUploadProps) {
-  const [imageSrc, setImageSrc] = React.useState<string | null>(null)
+  // Initialize with default image if it exists to prevent hydration mismatches
+  const [imageSrc, setImageSrc] = React.useState<string | null>(
+    hasDefaultImage && defaultImageSrc ? defaultImageSrc : null
+  )
   const [isDragOver, setIsDragOver] = React.useState(false)
-  const fileInputRef = React.useRef<HTMLInputElement>(null)
+  const fileInputRef = React. useRef<HTMLInputElement>(null)
 
   const storageKey = `portfolio_screenshot_${slug}_${title.toLowerCase().replace(/\s+/g, "_")}`
 
-  // Load saved image from localStorage on client mount
+  // Load saved image from localStorage on client mount (overwrites default if user uploaded one)
   React.useEffect(() => {
     try {
       const saved = localStorage.getItem(storageKey)
       if (saved) {
         setImageSrc(saved)
-      } else if (hasDefaultImage && defaultImageSrc) {
-        setImageSrc(defaultImageSrc)
       }
     } catch (e) {
       console.error("Failed to load screenshot from localStorage:", e)
     }
-  }, [storageKey, hasDefaultImage, defaultImageSrc])
+  }, [storageKey])
 
   const handleFile = (file: File) => {
     if (!file.type.startsWith("image/")) {
@@ -152,49 +153,6 @@ export function ScreenshotUpload({
     )
   }
 
-  return (
-    <div
-      onDragOver={onDragOver}
-      onDragLeave={onDragLeave}
-      onDrop={onDrop}
-      onClick={triggerFileInput}
-      className={cn(
-        "group/upload flex flex-col justify-between items-center text-center p-6 min-h-[220px] rounded-lg border border-dashed cursor-pointer transition-all duration-300 select-none",
-        isDragOver
-          ? "border-primary bg-primary/5 scale-[0.99] shadow-inner"
-          : "border-border/80 bg-card hover:border-primary-text/40 hover:bg-muted/10",
-        className
-      )}
-    >
-      <Stack gap={1} className="items-center my-auto">
-        <ImageIcon className={cn(
-          "h-8 w-8 mb-2 transition-transform duration-300",
-          isDragOver ? "text-primary scale-110" : "text-muted-foreground/50 group-hover/upload:scale-110"
-        )} />
-        <span className="text-sm font-bold text-primary-text uppercase tracking-wider block">
-          {title}
-        </span>
-        <span className="text-xs text-muted-foreground max-w-xs block leading-relaxed mt-1">
-          {description}
-        </span>
-      </Stack>
-
-      <span className={cn(
-        "text-[10px] uppercase font-mono font-bold tracking-widest px-3 py-1 rounded border mt-4 transition-colors",
-        isDragOver 
-          ? "bg-primary/20 border-primary text-primary" 
-          : "bg-muted/25 border-border/30 text-muted-foreground/60 group-hover/upload:border-primary-text/20 group-hover/upload:text-primary-text"
-      )}>
-        {isDragOver ? "Drop Image Here" : "Drag & Drop Image Here"}
-      </span>
-
-      <input
-        type="file"
-        ref={fileInputRef}
-        onChange={onFileSelect}
-        accept="image/*"
-        className="hidden"
-      />
-    </div>
-  )
+  // If no image is present (neither static file nor localStorage), hide the placeholder card completely
+  return null
 }
