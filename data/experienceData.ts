@@ -72,8 +72,8 @@ export const experiencesData: ExperienceData[] = [
       "Axios",
       "Tailwind CSS"
     ],
-    githubUrl: "https://github.com/archi2305/Portfolio",
-    liveUrl: undefined,
+    githubUrl: undefined,
+    liveUrl: "https://ideactrasocial-frontend.onrender.com",
     caseStudy: {
       dashboardImage: "/images/ideactra-dashboard.png",
       overview: "Ideactra Social is a professional networking platform inspired by LinkedIn. During my internship, I worked on building the product from the ground up, including authentication, user profiles, networking features, posts, messaging, notifications, and deployment. The goal was to create a scalable social platform where professionals can connect, communicate, and share content.",
@@ -234,7 +234,7 @@ export const experiencesData: ExperienceData[] = [
     location: "Gurugram, India",
     summary: "Architected backend services for DressHub, a fashion e-commerce platform, designing REST APIs and relational database models for products, inventory, customers, and order management.",
     technologies: ["Django", "Python", "MySQL", "REST APIs", "JavaScript"],
-    githubUrl: "https://github.com/archi2305/Portfolio",
+    githubUrl: undefined,
     liveUrl: undefined,
     caseStudy: {
       dashboardImage: "/images/hashedbit-catalog.png",

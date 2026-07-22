@@ -93,6 +93,17 @@ export default async function ExperienceCaseStudyPage({ params }: PageProps) {
 
               {/* Action Buttons */}
               <div className="flex gap-3 shrink-0">
+                {experience.liveUrl && (
+                  <a
+                    href={experience.liveUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 px-4 py-2 text-sm font-semibold rounded-md border border-border bg-card hover:bg-muted/50 hover:text-primary-text transition-all duration-200 animate-pulse hover:animate-none"
+                  >
+                    Live Demo
+                    <ExternalLink className="h-3.5 w-3.5" />
+                  </a>
+                )}
                 {experience.githubUrl && (
                   <a
                     href={experience.githubUrl}
