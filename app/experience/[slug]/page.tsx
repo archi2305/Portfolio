@@ -10,7 +10,6 @@ import { Heading } from "@/components/ui/heading"
 import { Stack } from "@/components/layout/stack"
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { ScreenshotUpload } from "@/components/ui/screenshot-upload"
 import { ArrowLeft, Calendar, MapPin, ExternalLink, Shield, Cpu, Database, Server, Smartphone, CheckCircle, Image as ImageIcon } from "lucide-react"
 
 interface PageProps {
@@ -60,7 +59,7 @@ export default async function ExperienceCaseStudyPage({ params }: PageProps) {
   const { caseStudy } = experience
   const hasDashboardImage = checkImageExists(caseStudy.dashboardImage)
   const isIdeactra = experience.id === "ideactra-social"
-  const hasAnyGalleryImage = isIdeactra || caseStudy.gallery.some((img) => checkImageExists(img.image))
+  const hasAnyGalleryImage = caseStudy.gallery.some((img) => checkImageExists(img.image))
 
   return (
     <Container className="py-12 md:py-24 max-w-4xl selection:bg-accent selection:text-accent-foreground">
@@ -146,17 +145,8 @@ export default async function ExperienceCaseStudyPage({ params }: PageProps) {
           </Stack>
         </div>
 
-        {/* Project Highlight Mockup Card (Interactive Upload for Ideactra, Static for HashedBit) */}
-        {isIdeactra ? (
-          <ScreenshotUpload
-            slug={experience.slug}
-            title="Dashboard Highlight Mockup"
-            description="Main dashboard visualization exhibiting post feeds, trending list components, and search modules."
-            defaultImageSrc={caseStudy.dashboardImage}
-            hasDefaultImage={hasDashboardImage}
-            className="aspect-[16/10]"
-          />
-        ) : hasDashboardImage ? (
+        {/* Project Highlight Mockup Card (Only renders if static image exists) */}
+        {hasDashboardImage ? (
           <div className="relative w-full rounded-lg overflow-hidden border border-border aspect-[16/10] bg-muted/10">
             <Image
               src={caseStudy.dashboardImage!}
@@ -482,7 +472,7 @@ export default async function ExperienceCaseStudyPage({ params }: PageProps) {
           </div>
         </section>
 
-        {/* Project Gallery (Upload grid for Ideactra, Static display for HashedBit) */}
+        {/* Project Gallery (Static display for all internships) */}
         {hasAnyGalleryImage && (
           <section className="space-y-6">
             <Heading as="h2" className="text-2xl font-bold border-b pb-2">
@@ -492,17 +482,7 @@ export default async function ExperienceCaseStudyPage({ params }: PageProps) {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               {caseStudy.gallery.map((img, index) => {
                 const hasGalleryImage = checkImageExists(img.image)
-                return isIdeactra ? (
-                  <ScreenshotUpload
-                    key={index}
-                    slug={experience.slug}
-                    title={img.title}
-                    description={img.description}
-                    defaultImageSrc={img.image}
-                    hasDefaultImage={hasGalleryImage}
-                    className="aspect-[16/10]"
-                  />
-                ) : hasGalleryImage ? (
+                return hasGalleryImage ? (
                   <div key={index} className="flex flex-col gap-3 group/gallery">
                     <div className="relative w-full rounded-lg overflow-hidden border border-border aspect-[16/10] bg-muted/10">
                       <Image
