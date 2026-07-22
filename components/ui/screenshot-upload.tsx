@@ -3,6 +3,7 @@
 import * as React from "react"
 import { Image as ImageIcon, Upload, X } from "lucide-react"
 import { cn } from "@/lib/utils"
+import { Stack } from "@/components/layout/stack"
 
 interface ScreenshotUploadProps {
   slug: string
