@@ -1,5 +1,6 @@
 import * as React from "react"
 import Link from "next/link"
+import Image from "next/image"
 import fs from "fs"
 import path from "path"
 import { notFound } from "next/navigation"
@@ -10,7 +11,7 @@ import { Stack } from "@/components/layout/stack"
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { ScreenshotUpload } from "@/components/ui/screenshot-upload"
-import { ArrowLeft, Calendar, MapPin, ExternalLink, Shield, Cpu, Database, Server, Smartphone, CheckCircle } from "lucide-react"
+import { ArrowLeft, Calendar, MapPin, ExternalLink, Shield, Cpu, Database, Server, Smartphone, CheckCircle, Image as ImageIcon } from "lucide-react"
 
 interface PageProps {
   params: Promise<{ slug: string }>
@@ -58,6 +59,7 @@ export default async function ExperienceCaseStudyPage({ params }: PageProps) {
 
   const { caseStudy } = experience
   const hasDashboardImage = checkImageExists(caseStudy.dashboardImage)
+  const isIdeactra = experience.id === "ideactra-social"
 
   return (
     <Container className="py-12 md:py-24 max-w-4xl selection:bg-accent selection:text-accent-foreground">
@@ -132,15 +134,41 @@ export default async function ExperienceCaseStudyPage({ params }: PageProps) {
           </Stack>
         </div>
 
-        {/* Project Highlight Mockup Card (Interactive Drag/Drop component) */}
-        <ScreenshotUpload
-          slug={experience.slug}
-          title="Dashboard Highlight Mockup"
-          description="Main dashboard visualization exhibiting post feeds, trending list components, and search modules."
-          defaultImageSrc={caseStudy.dashboardImage}
-          hasDefaultImage={hasDashboardImage}
-          className="aspect-[16/10]"
-        />
+        {/* Project Highlight Mockup Card (Interactive Upload for Ideactra, Static for HashedBit) */}
+        {isIdeactra ? (
+          <ScreenshotUpload
+            slug={experience.slug}
+            title="Dashboard Highlight Mockup"
+            description="Main dashboard visualization exhibiting post feeds, trending list components, and search modules."
+            defaultImageSrc={caseStudy.dashboardImage}
+            hasDefaultImage={hasDashboardImage}
+            className="aspect-[16/10]"
+          />
+        ) : hasDashboardImage ? (
+          <div className="relative w-full rounded-lg overflow-hidden border border-border aspect-[16/10] bg-muted/10">
+            <Image
+              src={caseStudy.dashboardImage!}
+              alt="Dashboard Highlight Mockup"
+              fill
+              className="object-cover"
+              sizes="(max-width: 896px) 100vw, 896px"
+              priority
+            />
+          </div>
+        ) : (
+          <Card className="w-full bg-card border border-border/80 border-dashed flex items-center justify-center p-8 md:p-12 text-center select-none min-h-[260px]">
+            <Stack gap={2} className="items-center">
+              <ImageIcon className="h-10 w-10 text-muted-foreground/45" />
+              <span className="font-bold text-primary-text text-base">Dashboard Highlight Mockup</span>
+              <p className="text-xs text-muted-foreground max-w-sm leading-relaxed">
+                Main catalog visualization exhibiting e-commerce items, filtering controls, and cart overview modules.
+              </p>
+              <span className="text-[10px] uppercase font-mono font-bold tracking-widest text-muted-foreground/60 px-3 py-1 bg-muted/25 rounded border border-border/30 mt-2">
+                Placeholder
+              </span>
+            </Stack>
+          </Card>
+        )}
 
         {/* Project Overview */}
         <section className="space-y-6">
@@ -190,7 +218,7 @@ export default async function ExperienceCaseStudyPage({ params }: PageProps) {
           </div>
         </section>
 
-        {/* Architecture */}
+        {/* System Architecture */}
         <section className="space-y-6">
           <Heading as="h2" className="text-2xl font-bold border-b pb-2">
             System Architecture
@@ -329,54 +357,87 @@ export default async function ExperienceCaseStudyPage({ params }: PageProps) {
                   <span>▼</span>
                 </div>
                 <div className="px-3 py-2 bg-background border border-border rounded font-bold text-primary-text w-full max-w-[240px] text-center">
-                  FastAPI Backend (Render)
+                  {isIdeactra ? "FastAPI Backend (Render)" : "Django Backend (Render)"}
                   <div className="text-[9px] text-secondary-text font-normal text-left mt-1.5 border-t border-border/50 pt-1.5 space-y-0.5">
-                    <div>├─ Authentication</div>
-                    <div>├─ User APIs</div>
-                    <div>├─ Posts APIs</div>
-                    <div>├─ Messaging APIs</div>
-                    <div>├─ Notification APIs</div>
-                    <div>└─ Profile APIs</div>
+                    {isIdeactra ? (
+                      <>
+                        <div>├─ Authentication</div>
+                        <div>├─ User APIs</div>
+                        <div>├─ Posts APIs</div>
+                        <div>├─ Messaging APIs</div>
+                        <div>├─ Notification APIs</div>
+                        <div>└─ Profile APIs</div>
+                      </>
+                    ) : (
+                      <>
+                        <div>├─ Account Verification</div>
+                        <div>├─ Product Catalog APIs</div>
+                        <div>├─ Shopping Cart APIs</div>
+                        <div>└─ Order Tracking APIs</div>
+                      </>
+                    )}
                   </div>
                 </div>
                 <div className="text-[10px] text-muted-foreground">▼</div>
                 <div className="px-3 py-1.5 bg-background border border-border rounded font-bold text-primary-text w-full max-w-[240px] text-center">
-                  PostgreSQL Database (Render)
+                  {isIdeactra ? "PostgreSQL Database (Render)" : "MySQL Database Server"}
                 </div>
               </div>
             </Card>
 
-            {/* Diagram 2: Secondary Flow (Authentication) */}
+            {/* Diagram 2: Secondary Flow (Authentication / Transactions) */}
             <Card className="bg-card border border-border p-6 flex flex-col justify-between">
               <div className="mb-4">
                 <span className="text-xs font-bold text-muted-foreground uppercase tracking-widest block mb-1">
-                  Authentication Integration Flow
+                  {isIdeactra ? "Authentication Integration Flow" : "Inventory Transaction Flow"}
                 </span>
                 <span className="text-[11px] text-muted-foreground/75">
-                  SSO Federated Login and Session Issuing Cycle
+                  {isIdeactra ? "SSO Federated Login and Session Issuing Cycle" : "Concurrency-Safe Stock Validation Process"}
                 </span>
               </div>
               <div className="w-full flex flex-col items-center gap-3 py-4 px-2 bg-muted/10 border border-border/80 border-dashed rounded-lg text-xs font-mono">
-                <div className="flex gap-2 w-full max-w-[240px] justify-between">
-                  <div className="flex-1 px-2 py-1 bg-background border border-border rounded font-bold text-primary-text text-center text-[10px]">
-                    Google OAuth
-                  </div>
-                  <div className="flex-1 px-2 py-1 bg-background border border-border rounded font-bold text-primary-text text-center text-[10px]">
-                    GitHub OAuth
-                  </div>
-                </div>
-                <div className="text-[10px] text-muted-foreground">▼</div>
-                <div className="px-3 py-1.5 bg-background border border-border rounded font-bold text-primary-text w-full max-w-[240px] text-center">
-                  Authentication Service
-                </div>
-                <div className="text-[10px] text-muted-foreground">▼</div>
-                <div className="px-3 py-1.5 bg-background border border-border rounded font-bold text-primary-text w-full max-w-[240px] text-center">
-                  JWT Token Issued
-                </div>
-                <div className="text-[10px] text-muted-foreground">▼</div>
-                <div className="px-3 py-1.5 bg-background border border-border rounded font-bold text-primary-text w-full max-w-[240px] text-center">
-                  React Client Local Storage
-                </div>
+                {isIdeactra ? (
+                  <>
+                    <div className="flex gap-2 w-full max-w-[240px] justify-between">
+                      <div className="flex-1 px-2 py-1 bg-background border border-border rounded font-bold text-primary-text text-center text-[10px]">
+                        Google OAuth
+                      </div>
+                      <div className="flex-1 px-2 py-1 bg-background border border-border rounded font-bold text-primary-text text-center text-[10px]">
+                        GitHub OAuth
+                      </div>
+                    </div>
+                    <div className="text-[10px] text-muted-foreground">▼</div>
+                    <div className="px-3 py-1.5 bg-background border border-border rounded font-bold text-primary-text w-full max-w-[240px] text-center">
+                      Authentication Service
+                    </div>
+                    <div className="text-[10px] text-muted-foreground">▼</div>
+                    <div className="px-3 py-1.5 bg-background border border-border rounded font-bold text-primary-text w-full max-w-[240px] text-center">
+                      JWT Token Issued
+                    </div>
+                    <div className="text-[10px] text-muted-foreground">▼</div>
+                    <div className="px-3 py-1.5 bg-background border border-border rounded font-bold text-primary-text w-full max-w-[240px] text-center">
+                      React Client Local Storage
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <div className="px-3 py-1.5 bg-background border border-border rounded font-bold text-primary-text w-full max-w-[240px] text-center">
+                      Checkout Request Received
+                    </div>
+                    <div className="text-[10px] text-muted-foreground">▼</div>
+                    <div className="px-3 py-1.5 bg-background border border-border rounded font-bold text-primary-text w-full max-w-[240px] text-center">
+                      MySQL Transaction (select_for_update)
+                    </div>
+                    <div className="text-[10px] text-muted-foreground">▼</div>
+                    <div className="px-3 py-1.5 bg-background border border-border rounded font-bold text-primary-text w-full max-w-[240px] text-center">
+                      Stock Count Deducted
+                    </div>
+                    <div className="text-[10px] text-muted-foreground">▼</div>
+                    <div className="px-3 py-1.5 bg-background border border-border rounded font-bold text-primary-text w-full max-w-[240px] text-center">
+                      Order Dispatched & Commited
+                    </div>
+                  </>
+                )}
               </div>
             </Card>
           </div>
@@ -422,7 +483,7 @@ export default async function ExperienceCaseStudyPage({ params }: PageProps) {
           </div>
         </section>
 
-        {/* Project Gallery (Interactive Drag/Drop upload grid) */}
+        {/* Project Gallery (Upload grid for Ideactra, Static display for HashedBit) */}
         <section className="space-y-6">
           <Heading as="h2" className="text-2xl font-bold border-b pb-2">
             Project Gallery
@@ -431,7 +492,7 @@ export default async function ExperienceCaseStudyPage({ params }: PageProps) {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
             {caseStudy.gallery.map((img, index) => {
               const hasGalleryImage = checkImageExists(img.image)
-              return (
+              return isIdeactra ? (
                 <ScreenshotUpload
                   key={index}
                   slug={experience.slug}
@@ -441,6 +502,45 @@ export default async function ExperienceCaseStudyPage({ params }: PageProps) {
                   hasDefaultImage={hasGalleryImage}
                   className="aspect-[16/10]"
                 />
+              ) : hasGalleryImage ? (
+                <div key={index} className="flex flex-col gap-3 group/gallery">
+                  <div className="relative w-full rounded-lg overflow-hidden border border-border aspect-[16/10] bg-muted/10">
+                    <Image
+                      src={img.image!}
+                      alt={img.title}
+                      fill
+                      className="object-cover transition-transform duration-500 group-hover/gallery:scale-105"
+                      sizes="(max-width: 440px) 100vw, 440px"
+                      loading="lazy"
+                    />
+                  </div>
+                  <div className="px-1">
+                    <span className="text-sm font-bold text-primary-text uppercase tracking-wider block">
+                      {img.title}
+                    </span>
+                    <span className="text-xs text-muted-foreground mt-1 block leading-relaxed">
+                      {img.description}
+                    </span>
+                  </div>
+                </div>
+              ) : (
+                <Card 
+                  key={index} 
+                  className="bg-card border border-border/80 border-dashed p-6 min-h-[220px] flex flex-col justify-between items-center text-center"
+                >
+                  <Stack gap={1} className="items-center">
+                    <ImageIcon className="h-8 w-8 text-muted-foreground/50 mb-2" />
+                    <span className="text-sm font-bold text-primary-text uppercase tracking-wider block">
+                      {img.title}
+                    </span>
+                    <span className="text-xs text-muted-foreground max-w-xs block leading-relaxed mt-1">
+                      {img.description}
+                    </span>
+                  </Stack>
+                  <span className="text-[10px] uppercase font-mono font-bold tracking-widest text-muted-foreground/60 px-3 py-1 bg-muted/25 rounded border border-border/30 mt-4 select-none">
+                    Placeholder
+                  </span>
+                </Card>
               )
             })}
           </div>
